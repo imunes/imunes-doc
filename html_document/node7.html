@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2017.2 (Released Jan 23, 2017) -->
+<HTML>
+<HEAD>
+<TITLE>7. Troubleshooting</TITLE>
+<META NAME="description" CONTENT="7. Troubleshooting">
+<META NAME="keywords" CONTENT="html_document">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2017.2">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="html_document.css">
+
+<LINK REL="next" HREF="node8.html">
+<LINK REL="previous" HREF="node6.html">
+<LINK REL="up" HREF="html_document.html">
+<LINK REL="next" HREF="node8.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html386"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html384"
+  HREF="html_document.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html378"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html387"
+  HREF="node8.html">8. IMUNES network configuration</A>
+<B> Up:</B> <A NAME="tex2html385"
+  HREF="html_document.html">IMUNES manual</A>
+<B> Previous:</B> <A NAME="tex2html379"
+  HREF="node6.html">6. Installation</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html388"
+  HREF="node7.html#SECTION00710000000000000000"><SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">1</SPAN> Terminating all active experiments</A>
+<UL>
+<LI><A NAME="tex2html389"
+  HREF="node7.html#SECTION00711000000000000000"><SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">1</SPAN> Cleaning up hanging ZFS mounts</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html390"
+  HREF="node7.html#SECTION00720000000000000000"><SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">2</SPAN> Restoring original ZFS snapshot</A>
+<LI><A NAME="tex2html391"
+  HREF="node7.html#SECTION00730000000000000000"><SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">3</SPAN> Obtaining kernel panic traces</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00700000000000000000">
+<SPAN CLASS="arabic">7</SPAN>. Troubleshooting</A>
+</H1>
+
+<P>
+
+<H1><A NAME="SECTION00710000000000000000">
+<SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">1</SPAN> Terminating all active experiments</A>
+</H1>
+
+<P>
+To terminate all active experiments a clean-up script is available in the IMUNES
+system. The script is invoked by issuing the command <TT>cleanupAll</TT> with
+root privileges. This script will terminate all running experiments.
+
+<P>
+<TT># cleanupAll</TT>
+
+<P>
+
+<H2><A NAME="SECTION00711000000000000000">
+<SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">1</SPAN>.<SPAN CLASS="arabic">1</SPAN> Cleaning up hanging ZFS mounts</A>
+</H2>
+
+<P>
+If a machine running an experiment is rebooted the experiment will not be
+available after boot but the ZFS mounts needed for network nodes will remain
+available after the restart. The <TT>cleanupAll</TT> tool is also used for
+destroying the remaining ZFS mounts. 
+
+<P>
+
+<H1><A NAME="SECTION00720000000000000000">
+<SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">2</SPAN> Restoring original ZFS snapshot</A>
+</H1>
+<SPAN  CLASS="textbf">NOTE:</SPAN> New versions of IMUNES use Unionfs instead of ZFS.
+
+<P>
+The ZFS snapshot used for replicating on virtual nodes can be corrupted or
+deleted. To restore the ZFS snapshot to the original state we first need to
+destroy the existing default snapshot named <TT>vroot/vroot@clean</TT>. Before
+destroying the ZFS snapshot make sure that no experiments are currently running
+by using the command <TT>himage -l</TT> and use the <TT>imunes -b eid</TT>
+option or the <TT>cleanupAll</TT> tool to terminate them.  removal of the ZFS
+snapshot is done by issuing the following command with root user privileges:
+
+<P>
+<TT># zfs destroy -fR vroot/vroot@clean</TT>
+
+<P>
+After the procedure is complete download the IMUNES tarball from the IMUNES
+website (<TT><A NAME="tex2html101"
+  HREF="http://imunes.tel.fer.hr/dl/imunes-1.0.tar.gz">http://imunes.tel.fer.hr/dl/imunes-1.0.tar.gz</A></TT>) and unpack it.
+Then enter the directory an run the command <TT>make vroot</TT> with root
+privileges to restore the ZFS snapshot. The procedure done as follows:
+
+<P>
+<TT># tar xf imunes-1.0.tar.gz</TT>
+<BR><TT># cd imunes_<SPAN  CLASS="textit">version</SPAN></TT>
+<BR><TT># make vroot_zfs</TT>
+
+<P>
+<SPAN  CLASS="textbf">NOTE:</SPAN> To restore the snapshot an Internet connection must be available.
+
+<P>
+
+<H1><A NAME="SECTION00730000000000000000">
+<SPAN CLASS="arabic">7</SPAN>.<SPAN CLASS="arabic">3</SPAN> Obtaining kernel panic traces</A>
+</H1>
+
+<P>
+In case a specific experiment configuration, workload type or hardware
+configuration triggers operating system crashes, obtaining traces of
+such events may be instrumental for successful debugging and resolving
+the observed operating system level bugs.  The following procedure is
+recommended for collecting kernel panic traces:
+
+<P>
+Add the following line to the 
+<TT>/etc/rc.conf</TT>
+file:
+
+<P>
+<TT>dumpdev="AUTO"</TT>
+
+<P>
+Create a new file
+<TT>/usr/local/etc/rc.d/textdump</TT>
+and populate it with the following script:
+
+<P>
+<PRE>
+#!/bin/sh
+#
+# PROVIDE: textdump
+# REQUIRE: LOGIN
+#
+
+ddb script kdb.enter.default="textdump set; capture on; bt;\
+show reg; show pcpu; show vnets; call doadump; reset"
+</PRE>
+
+<P>
+Set execution bit on
+<TT>/usr/local/etc/rc.d/textdump</TT>
+file:
+
+<P>
+<PRE>
+# chmod +x /usr/local/etc/rc.d/textdump
+</PRE>
+
+<P>
+Once rebooted, the machine should be from now on configured to automatically
+store kernel panic traces in
+<TT>/var/crash</TT>
+directory.  Here's an example of collection of kernel panic trace files:
+
+<P>
+<PRE>
+# ls -l /var/crash/
+total 96
+-rw-r--r--  1 root  wheel      2 Sep 20 00:06 bounds
+-rw-------  1 root  wheel    440 Sep 19 23:57 info.0
+-rw-------  1 root  wheel    442 Sep 20 00:00 info.1
+-rw-------  1 root  wheel    442 Sep 20 00:06 info.2
+-rw-------  1 root  wheel  24576 Sep 19 23:57 textdump.tar.0
+-rw-------  1 root  wheel  39424 Sep 20 00:00 textdump.tar.1
+-rw-------  1 root  wheel  24576 Sep 20 00:06 textdump.tar.2
+#
+</PRE>
+
+<P>
+Such "textdump" tarballs should be sumbitted along with any reports of
+kernel crashes.
+   
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html386"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html384"
+  HREF="html_document.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html378"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html387"
+  HREF="node8.html">8. IMUNES network configuration</A>
+<B> Up:</B> <A NAME="tex2html385"
+  HREF="html_document.html">IMUNES manual</A>
+<B> Previous:</B> <A NAME="tex2html379"
+  HREF="node6.html">6. Installation</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

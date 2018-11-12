@@ -1,0 +1,77 @@
+\section{Vimage - FreeBSD kernel command}
+The FreeBSD jail mechanism allows partitioning of a FreeBSD-based computer
+system into several independent smaller systems called jails. This mechanism
+enables creation of a safe environment, separate from the rest of the system.
+Processes created inside a jail are limited within that jail environment. Each
+jail is a virtual environment running on the host machine, having its own file
+system, processes, set of users, networking subsystem of the FreeBSD kernel and
+a few other things.     
+
+The vimage utility is an alternative user interface for controlling virtual
+network stacks in FreeBSD, aimed primarily at supporting legacy applications
+which are not yet converted to using \emph{jail, jexecn}, and \emph{jls}
+command. So the vimage command in its "inside" is composed of or uses these
+commands. 
+
+A virtual image or vimage is a jail with its own independent network stack
+instance.  Every process, socket and network interface present in the system is
+always attached to one, and only one, virtual network stack instance (vnet).
+During system bootup sequence a default vnet is created to which all the
+configured interfaces and user processes are initially attached.  Assuming that
+enough system resources are available, a user with sufficient privileges can
+create and manage a hierarchy of subordinated virtual images.  The vimage
+command allows for creation, deletion and monitoring of virtual images, as well
+as for execution of arbitrary processes in a targeted virtual image.
+
+\texttt{vimage vname [command ...]} \hfill
+
+If invoked with no modifiers, the vimage command spawns a new interactive shell
+in virtual image \texttt{vname}.  If optional additional arguments following
+\texttt{vname} are provided, the first of those will be executed in place of
+the interactive shell, and the rest of the arguments will be passed as
+arguments to the executed command.
+
+\texttt{vimage -l [-rvj] [vname]} \hfill
+ 
+List the properties and statistics for virtual images one level below the
+current one in the hierarchy. If an optional argument \texttt{vname} is
+provided, only the information regarding the target virtual image
+\texttt{vname} is displayed.  With the optional \texttt{vimage -r} switch
+enabled the list will include all virtual images below the current level in the
+vimage hierarchy.  Enabling the optional \texttt{vimage -v} or \texttt{vimage
+-j} switches results in a more detailed output.
+
+\subsection{Examples}
+
+Execute the \texttt{ifconfig} command in the virtual image \texttt{v1}:
+
+\texttt{\# vimage v1 ifconfig}
+
+Show the status information for virtual image \texttt{v1}:
+
+\texttt{\# vimage -lv v1}
+
+For more details see the \emph{vimage(8)} man page.
+
+% Virtual nodes corespond to vimages. Each vimage has its
+% \begin{itemize}
+%   \item fully private/independent interface list,
+%   \item loopback interface instance,
+%   \item indepentendt IPv4/IPv6 address space,
+%   \item private routing table,
+%   \item port/socket space,
+%   \item netgraph space,
+%   \item process group (technically, process grouping independent from stack virtualization).
+% \end{itemize}
+% 
+% To list all vimages under current position in the hierarchy, including the current one, use the following command:\\
+% 
+% \texttt{\# vimage -l}\\
+% 
+% The \emph{default} vimage '.' is always present even if no experiment is started. Other commands:
+% \begin{itemize}
+%   \item \emph{vimage (no arguments)} - displays current vimage name
+%   \item \emph{vimage -lr} 
+%   \item \emph{vimage name command} - executes a command in context of vimage name
+%   \item \emph{vimage name} - spawns an interactive shell in context of the target vimage
+% \end{itemize}

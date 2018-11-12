@@ -1,0 +1,83 @@
+/* Century Schoolbook font is very similar to Computer Modern Math: cmmi */
+.MATH    { font-family: "Century Schoolbook", serif; }
+.MATH I  { font-family: "Century Schoolbook", serif; font-style: italic }
+.BOLDMATH { font-family: "Century Schoolbook", serif; font-weight: bold }
+
+/* implement both fixed-size and relative sizes */
+SMALL.XTINY		{ font-size : xx-small }
+SMALL.TINY		{ font-size : x-small  }
+SMALL.SCRIPTSIZE	{ font-size : smaller  }
+SMALL.FOOTNOTESIZE	{ font-size : small    }
+SMALL.SMALL		{  }
+BIG.LARGE		{  }
+BIG.XLARGE		{ font-size : large    }
+BIG.XXLARGE		{ font-size : x-large  }
+BIG.HUGE		{ font-size : larger   }
+BIG.XHUGE		{ font-size : xx-large }
+
+/* heading styles */
+H1		{ 
+	font-size: 21pt;
+	border-bottom: 1px dashed #B3B3B3;
+}
+H2		{
+	font-size: 19pt;
+}
+H3		{ 
+	font-size: 17pt;
+}
+H4		{ 
+	font-size: 15pt;
+}
+H5		{  }
+
+/* mathematics styles */
+DIV.displaymath		{ }	/* math displays */
+TD.eqno			{ }	/* equation-number cells */
+
+
+/* document-specific styles come next */
+PRE.preform		{   }
+DIV.center		{   }
+DIV.navigation		{   }
+SPAN.tt		{   }
+DIV.alltt		{   }
+SPAN.textbf		{ font-weight: bold  }
+SPAN.arabic		{   }
+SPAN.textit		{ font-style: italic  }
+
+body {
+	font-family: sans-serif;
+	margin-right: auto;
+	margin-left: auto;
+	width: 80%;
+	min-width: 600px;
+	max-width: 990px;
+        background:#FAFAFA;
+	padding: 1em 1em 1em 1em;
+	border:2px dotted #919191;
+}
+
+li a {
+  	voice-family: "\"}\""; 
+  	voice-family: inherit;
+	font-size: 10pt;
+}
+
+tt {
+	border:1px dashed #919191;
+        background:#DADADA;
+	font-family: monospace;
+        overflow:auto;
+}
+
+pre {
+	border:1px dashed #919191;
+        background:#DADADA;
+        font-family:monospace;
+        overflow:auto;
+}
+
+address {
+	padding: 1.5em 0em 0em 0em;
+}

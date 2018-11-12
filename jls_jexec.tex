@@ -1,0 +1,61 @@
+\section{Managing virtual nodes (jails) - jls, jexec}
+The FreeBSD jail mechanism allows partitioning of a FreeBSD-based computer
+system into several independent smaller systems called jails. This mechanism
+enables creation of a safe environment, separate from the rest of the system.
+Processes created inside a jail are limited within that jail environment. Each
+jail is a virtual environment running on the host machine, having its own file
+system, processes, set of users, networking subsystem of the FreeBSD kernel and
+a few other things.     
+
+Two main commands exist in FreeBSD for manging and configuring previously
+created jails:
+\begin{itemize}
+\item \texttt{jexec} - executes a command inside an existing jail
+\item \texttt{jls} - lists jails.
+\end{itemize}
+
+A virtual image or vimage is a jail with its own independent network stack
+instance.  Every process, socket and network interface present in the system is
+always attached to one, and only one, virtual network stack instance (vnet).
+During system bootup sequence a default vnet is created to which all the
+configured interfaces and user processes are initially attached. 
+
+The \texttt{jexec} command allows for execution of arbitrary processes in a
+targeted virtual image.
+
+\texttt{jexec jname command ...} \hfill
+
+The jexec command starts the selected command and it's arguments in the jail
+\texttt{jname}.
+
+To find out the names of started jails the jls command is used: 
+
+\texttt{jls [-hnqsv] [parameter ...]} \hfill
+ 
+Since the default jls command doesn't list names of jails a better output is
+provided using the command:
+
+\texttt{jls -h jid name host.hostname} \hfill
+
+Also, the command \texttt{jls -v} gives a more detailed output.
+
+\subsection{Examples}
+
+Execute the \texttt{ifconfig} command in the jail with the jail name
+\texttt{n1}:
+
+\texttt{\# jexec n1 ifconfig} \hfill
+
+Execute the \texttt{csh} command in the IMUNES virtual node named \texttt{host1}:
+
+First we need to find out the jail ID or jail name to execute the wanted
+command:
+
+\texttt{\# jls -h jid name host.hostname | grep host1} \hfill
+
+The first parameter output is the jail ID, the second is the jail name and the
+last is the hostname. To execute the command you need the jail ID or jail name:
+
+\texttt{\# jexec \emph{jid} csh} \hfill
+
+\texttt{\# jexec \emph{jname} csh} \hfill

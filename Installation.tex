@@ -1,0 +1,903 @@
+\chapter{Installation}
+
+\section{Installation of IMUNES on FreeBSD 8}
+
+\subsection{Installing FreeBSD}
+A comprehensive and explanatory guide for installing configuring and using
+FreeBSD can be found here:
+
+\begin{center}
+\url{http://www.freebsd.org/doc/handbook/}
+\end{center}
+
+Section 2 of the handbook describes the installation of the FreeBSD operating
+system: 
+\begin{center}
+\url{http://www.freebsd.org/doc/handbook/install.html}
+\end{center}
+
+You can choose to install FreeBSD with two different architectures:
+\begin{itemize}
+\item i386 - 32-bit - works on most personal computers.
+\item amd64 - 64-bit - works on newer computers that support 64-bit processing.
+Adds support for more RAM.
+\end{itemize}
+
+\subsection{Step by step guide through the FreeBSD installation}
+\begin{enumerate}
+\item Insert the FreeBSD-8.2-RELEASE or FreeBSD-8.3-RELEASE (i386 or amd64) 
+medium on startup. Boot from it.
+\item Country Selection - Choose your country (e.g. United States). Press
+OK.
+\item Main Menu - Choose the "Standard" installation. Press Select.
+\item Message - Press OK.
+\item FDISK Partition Editor - Press C to create a slice:
+    \begin{enumerate}
+    \item A minimum of 20GB is needed for FreeBSD. Type 20G to create a 20GB
+    slice. Press OK.
+    \item A screen with the number 165 appears. Press OK.
+    \item Position on the created partition (probably named \texttt{ad0s1}).
+    \item Press S to set the created partition bootable.
+    \end{enumerate}
+\item FDISK Partition Editor - Position on the "unused" space beneath the
+created partiton. Press C to create another slice:
+    \begin{enumerate}
+    \item A minimum of 5GB is needed for ZFS. Type 5G to create a 5GB slice. Press OK.
+    \item A screen with the number 165 appears. Press OK.
+    \item Remember the name of this partition (probably named \texttt{ad0s2}).
+    This name will be later used for configuring ZFS.
+    \end{enumerate}
+\item FDISK Partition Editor - Press Q to finish.
+\item Boot Manager - Select the "Standard" option. Press OK.
+\item Message - Press OK.
+\item FreeBSD Disklabel Editor - While the partition "ad0s1" (the 20GB one) is
+selected press A to automatically distribute system partitions on it.
+\item FreeBSD Disklabel Editor - The result should look similar to this:
+    \begin{verbatim}
+    Part      Mount     Size
+    ad0s1a    /       1024MB
+    ad0s1b    swap    2006MB
+    ad0s1d    /var    5099MB
+    ad0s1e    /tmp    1024MB
+    ad0s1f    /usr   11326MB
+    \end{verbatim}
+\item FreeBSD Disklabel Editor - Press Q.
+\item Choose Distributions - Select the "6 User" distribution.
+\item FreeBSD Documentation Installation Menu - Select "en" and then "X Exit".
+\item Ports collection installation - Select "Yes".
+\item Choose Distributions - Select the "X Exit" to exit. Press OK.
+\item Choose Installation Media - Select "1 CD/DVD Install from a FreeBSD CD/DVD".
+\item Continue through the Installation - Select "Yes".
+\item Wait until the installation is over.
+\item Message - Press OK.
+\item Configure any ethernet devices? - Select "Yes".
+    \begin{enumerate}
+    \item Select the wanted ethernet device, e.g. \texttt{em0}.
+    \item IPv6 configuration - Select "No".
+    \item DHCP configuration - Select "Yes".
+    \item Enter the hostname, e.g. IMUNES1.
+    \item Select "OK".
+    \end{enumerate}
+\item Network gateway - Select "No".
+\item Install inetd services - Select "No".
+\item Allow SSH login - Select "Yes".
+\item Allow anonymous FTP access - Select "No".
+\item NFS server - Select "No".
+\item NFS client - Select "No".
+\item Customize system console settings - Select "No".
+\item Set time zone - Select "No".
+\item Configure mouse - Select "No".
+\item Browse package collection - Select "No".
+\item Add additional user accounts - Select "No".
+\item Message - Set root password - Press "OK". Enter password. Re-enter
+password.
+\item Visit the general configuration menu - Select "No".
+\item Main Menu - Select the "X Exit Install" option by using the "Tab" key.
+\item Are you sure you want to exit? - Select "Yes".
+\item Message - Reboot - Press "OK".
+\end{enumerate}
+
+\subsection{Installing the FreeBSD X11 system - GUI}
+
+Login into the machine as root. Edit the file \texttt{/etc/rc.conf} with an editor e.g.
+\texttt{vi} and add the following lines at the end of the file:
+\begin{verbatim}
+hald_enable="YES"
+dbus_enable="YES"
+zfs_enable="YES"
+\end{verbatim}
+Save changes and exit.
+
+\texttt{\# pkg\_add -r xorg bash xpdf vim geany zip unzip xterm firefox}
+
+You can choose between multiple desktop environments:
+\begin{itemize}
+\item Gnome2-lite - complete, user-friendly desktop\\
+\texttt{\# pkg\_add -r gnome2-lite}
+\item XFCE 4 - lightweight desktop environment\\
+\texttt{\# pkg\_add -r xfce4}
+\item IceWM - extremely lightweight window manager, low resource usage\\
+\texttt{\# pkg\_add -r icewm}
+\end{itemize}
+
+After the installation of one or multiple window manager we need to configure
+which will be used. Edit the file \texttt{.xinitrc} in the user folder and add a line
+depending on which window manager you want to use:
+\begin{itemize}
+\item Gnome2-lite\\
+\texttt{exec gnome-session}
+\item XFCE 4\\
+\texttt{exec startxfce4}
+\item IceWM\\
+\texttt{exec icewm-session}
+\end{itemize}
+
+Reboot the machine by issuing the \texttt{reboot} command:\\
+\texttt{\# reboot}
+
+After the machine has rebooted, log in and issue the \texttt{startx} command to
+start the chosen window manager:\\
+\texttt{\# startx}
+
+\subsection{Installing IMUNES}
+
+First we need to install the packages needed for IMUNES. To do this execute the
+following command:
+
+\texttt{\# pkg\_add -r tk86 ImageMagick tcllib libimg wireshark}
+
+After all the packages are installed we need to use the second partition we
+prepared during the installation (the one with the size 5GB, probably named
+\texttt{ad0s2}). This partition will be used to store the data that will be in
+the virtual nodes. For this purpose we will create a ZFS pool on the second
+partition with the command \texttt{zpool create} assuming that the second
+partition is named \texttt{ad0s2}:
+
+\texttt{\# zpool create vroot /dev/ad0s2}
+
+Now we need to fetch the IMUNES source/tarball from the official imunes site:
+
+\begin{center}
+\url{http://imunes.tel.fer.hr/imunes-1.0.tar.gz}
+\end{center}
+
+To fetch you can use the firefox browser that we installed earlier or use the
+\texttt{fetch} command:
+
+\texttt{\# fetch http://imunes.tel.fer.hr/imunes-1.0.tar.gz}
+
+To extract the tarball use the following command:
+
+\texttt{\# tar xf imunes-1.0.tar.gz}
+
+Enter the extracted directory:
+
+\texttt{\# cd imunes}
+
+Now we need to install IMUNES and populate the ZFS file system with predefined
+and required data. To install imunes on the system execute:
+
+\texttt{\# make install}
+
+To setup the ZFS file system execute:
+
+\texttt{\# make vroot}
+
+Both of these commands can be executed together by executing:
+
+\texttt{\# make}
+
+Now the IMUNES GUI can be ran just by typing the \texttt{imunes} command in the
+terminal:
+
+\texttt{\# imunes}
+
+The GUI allows the specification of network topologies but to execute
+experiments the FreeBSD kernel must be compiled with a few additional options.
+
+\subsection{Recompiling the FreeBSD kernel with VIMAGE support}
+
+First, the kernel sources need to be fetched, this can be done by using the
+sysinstall utility:
+\begin{enumerate}
+\item Start the sysinstall utility:\\
+\texttt{\# sysinstall}
+\item Go to "Configure".
+\item Go to "Distributions".
+\item Go to "sys".
+\item Mark "src" by pressing the Space key on it.
+\item Select "X Exit".
+\item Select "X Exit".
+\item Select "Install from an FTP server".
+\item Choose the "Main server" or a server closer to your location.
+\item When the installation is done select press the Esc key until you exit the
+sysinstall utility.
+\end{enumerate}
+
+Now the kernel source is available in the folder \texttt{/usr/src/sys}. Enter
+that folder:
+
+\texttt{\# cd /usr/src/sys}
+
+Depending which distribution architecture you have decided to install, i386 or
+amd64 the next command differs.
+
+For i386 enter the directory \texttt{i386/conf}:
+
+\texttt{\# cd i386/conf}
+
+For amd64 enter the directory \texttt{amd64/conf}:
+
+\texttt{\# cd amd64/conf}
+
+With an editor (vi, vim or geany) create a file named \texttt{VIMAGE}:
+
+\texttt{\# vi VIMAGE}
+
+Insert the following configuration in the \texttt{VIMAGE} file:
+
+\texttt{include	GENERIC \\
+nooptions   FLOWTABLE \\
+options	    VIMAGE \\
+options	    VNET\_DEBUG \\
+options	    MROUTING \\
+ \\
+options	    DDB \\
+options	    KDB \\
+}
+
+Exit and save the file.
+
+Now execute the following commands:
+\begin{verbatim}
+# config VIMAGE
+# cd ../compile/VIMAGE
+# make cleandepend && make depend
+# make
+# make install
+\end{verbatim}
+
+When the last command ends use the \texttt{reboot} command to restart the
+computer:
+
+\texttt{\# reboot}
+
+\subsection{Running IMUNES on FreeBSD}
+
+After login execute the \texttt{startx} command to start the window manager.
+Open a terminal and start imunes:
+
+\texttt{\# imunes}
+
+Now you can create an arbitrary network topology or something like shown in
+Figure \ref{fig:simple_topology} and execute the experiment.
+
+\section{Installation of IMUNES on FreeBSD 9}
+
+\subsection{Installing FreeBSD}
+A comprehensive and explanatory guide for installing configuring and using
+FreeBSD can be found here:
+
+\begin{center}
+\url{http://www.freebsd.org/doc/handbook/}
+\end{center}
+
+Section 2 of the handbook describes the installation of the FreeBSD operating
+system: 
+\begin{center}
+\url{http://www.freebsd.org/doc/handbook/bsdinstall-start.html}
+\end{center}
+
+You can choose to install FreeBSD with two different architectures:
+\begin{itemize}
+\item i386 - 32-bit - works on most personal computers.
+\item amd64 - 64-bit - works on newer computers that support 64-bit processing.
+Adds support for more RAM.
+\end{itemize}
+
+\subsection{Step by step guide through the FreeBSD installation}
+\begin{enumerate}
+\item Insert the FreeBSD-9.2-RELEASE or FreeBSD-9.3-RELEASE (i386 or amd64) medium on startup. Boot from it.
+\item Welcome - Choose "Install".
+\item Keymap Selection
+	\begin{enumerate}
+		\item FreeBSD 9.3 - Press "Select" to "Continue with default keymap" or choose an alternative one.
+		\item FreeBSD 9.2 - If you use a non-default key mapping for your keyboard, choose "Yes" and find your keyboard. Otherwise, choose "No".
+	\end{enumerate}
+\item Set Hostname - Set the hostname for your newly installed system (e.g. "imunes").
+\item Distribution Select - Select "src" and "lib32" (only on amd64 architecture) and deselect "games" and "ports".
+\item Partitioning - choose Guided or Manual
+	\begin{itemize}
+	\item Guided - Choose a disk from the list (e.g. "ada0"). Select "Entire Disk". In the Confirmation window choose "Yes" to erase the entire disk. In the "Partition Editor" review the changes. 	After finishing partitioning, choose "Finish" and then "Commit".
+	\item Manual - example for manual partitioning for a 40GB slice:
+	    \begin{verbatim}
+	    Part        Type            Mount   Size
+	    ada0p1      freebsd-boot            64kB
+	    ada0p2      freebsd-ufs     /        2GB
+	    ada0p3      freebsd-ufs     /var     8GB
+	    ada0p4      freebsd-ufs     /tmp     4GB
+	    ada0p5      freebsd-ufs     /usr    24GB
+	    ada0p6      freebsd-swap    none     2GB
+	    \end{verbatim}
+	\end{itemize}
+	After finishing partitioning, choose "Finish" and then "Commit".
+NOTE: freebsd-boot boot partition will be created upon creation of the first freebsd-ufs partition.
+\item Archive extraction - Wait for the installation to complete.
+\item FreeBSD Installer - Enter your system administrator (root) password. Repeat the password.
+\item Network Configuration - Choose a network interface to configure (if any available).
+	\begin{enumerate}
+	\item Select "Yes" to configure IPv4 network if you use it. Then select "Yes" to configure DHCP if you use it.
+	\item Select "Yes" to configure IPv6 network if you use it. Then select "Yes" to configure SLAAC if you use it.
+	\item Resolver Configuration - If DHCP/SLAAC is used to configure the interface, some values may already be present. Otherwise, enter them yourself.
+	\end{enumerate}
+\item Timezones - If your timezone is not UTC, select "No" and choose your region and country (e.g. Europe->Croatia) and select "Yes" if asked for confirmation.
+\item System Configuration
+	\begin{enumerate}
+		\item FreeBSD 9.3 - Choose the "sshd" service to be started at boot and select "dumpdev" to enable crash dumps in /var.
+		\item FreeBSD 9.2 - Choose the "sshd" service to be started at boot.
+	\end{enumerate}
+\item (FreeBSD 9.2 only) Dumpdev Configuration - Select "Yes" for enabling crash dumps in /var folder.
+\item Add User Accounts - If necessary, add additional users now.
+\item Final Configuration - Choose "Exit".
+\item Manual Configuration - Nothing else is needed, so choose "No" to skip manual configuration.
+\item Complete - Reboot. (Don't forget to remove your FreeBSD boot media.)
+\end{enumerate}
+
+\subsection{Installing the FreeBSD X11 system - GUI}
+
+Login into the machine as root. Edit the file \texttt{/etc/rc.conf} with an editor e.g.
+\texttt{vi} and add the following lines at the end of the file:
+\begin{verbatim}
+hald_enable="YES"
+dbus_enable="YES"
+\end{verbatim}
+Save changes and exit.
+
+\texttt{\# pkg\_add -r xorg bash xpdf vim geany zip unzip xterm firefox subversion}
+
+You can choose between multiple desktop environments:
+\begin{itemize}
+\item Gnome2-lite - complete, user-friendly desktop\\
+\texttt{\# pkg\_add -r gnome2-lite}
+\item XFCE 4 - lightweight desktop environment\\
+\texttt{\# pkg\_add -r xfce4}
+\item IceWM - extremely lightweight window manager, low resource usage\\
+\texttt{\# pkg\_add -r icewm}
+\end{itemize}
+
+After the installation of one or multiple window manager we need to configure
+which will be used. Edit the file \texttt{.xinitrc} in the user folder and add a line
+depending on which window manager you want to use:
+\begin{itemize}
+\item Gnome2-lite\\
+\texttt{exec gnome-session}
+\item XFCE 4\\
+\texttt{exec startxfce4}
+\item IceWM\\
+\texttt{exec icewm-session}
+\end{itemize}
+
+Reboot the machine by issuing the \texttt{reboot} command:\\
+\texttt{\# reboot}
+
+After the machine has rebooted, log in and issue the \texttt{startx} command to
+start the chosen window manager:\\
+\texttt{\# startx}
+
+\subsection{Installing IMUNES}
+
+First we need to install the packages needed for IMUNES. To do this execute the
+following command:
+
+\texttt{\# pkg\_add -r tk86 ImageMagick tcllib wireshark socat gmake}
+
+Now we need to fetch the IMUNES source/tarball from the official imunes site:
+
+\begin{center}
+\url{http://imunes.tel.fer.hr/imunes-1.0.tar.gz}
+\end{center}
+
+To fetch you can use the firefox browser that we installed earlier or use the
+\texttt{fetch} command. Then extract the tarball and enter the directory:
+
+\texttt{\# fetch http://imunes.tel.fer.hr/imunes-1.0.tar.gz}\\
+\texttt{\# tar xf imunes-1.0.tar.gz}\\
+\texttt{\# cd imunes\_\emph{version}}
+
+Alternatively, you could checkout the last fresh IMUNES source through the
+public SVN repository:
+
+\texttt{\# svn co svn://imunes.tel.fer.hr/head/ imunes}\\
+\texttt{\# cd imunes}
+
+Now we need to install IMUNES and populate the virtual file system with predefined and required data. To install imunes on the system execute:
+
+\texttt{\# make install}
+
+To setup the virtual file system execute:
+
+\texttt{\# make vroot}
+
+Both of these commands can be executed together by executing:
+
+\texttt{\# make}
+
+Now the IMUNES GUI can be ran just by typing the \texttt{imunes} command in the
+terminal:
+
+\texttt{\# imunes}
+
+The GUI allows the specification of network topologies but to execute
+experiments the FreeBSD kernel must be compiled with a few additional options.
+
+\subsection{Recompiling the FreeBSD kernel with VIMAGE support}
+
+If you didn't include the src option in step 4 while installing FreeBSD, the
+kernel sources need to be fetched. Use your selected architecture and release combination:
+
+\texttt{\# fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/\emph{arch}/\emph{release}/src.txz}
+
+e.g. for FreeBSD 9.2 with amd64 architecture use:
+
+\texttt{\# fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/9.2-RELEASE/src.txz}
+
+Extract it by using:
+
+\texttt{\# tar xf src.txz -C /}
+
+Now the kernel source is available in the folder \texttt{/usr/src/sys}. Enter
+that folder:
+
+\texttt{\# cd /usr/src/sys}
+
+Depending which distribution architecture you have decided to install, i386 or
+amd64 the next command differs.
+
+For i386 enter the directory \texttt{i386/conf}:
+
+\texttt{\# cd i386/conf}
+
+For amd64 enter the directory \texttt{amd64/conf}:
+
+\texttt{\# cd amd64/conf}
+
+With an editor (vi, vim or geany) create a file named \texttt{VIMAGE}:
+
+\texttt{\# vi VIMAGE}
+
+Insert the following configuration in the \texttt{VIMAGE} file:
+
+\texttt{include	GENERIC \\
+nooptions FLOWTABLE \\
+options VIMAGE \\
+options VNET\_DEBUG \\
+options MROUTING \\
+ \\
+options IPSEC \\
+device crypto \\
+options IPSEC\_DEBUG \\
+ \\
+options DDB \\
+options KDB \\
+}
+
+Exit and save the file.
+
+Now execute the following commands:
+\begin{verbatim}
+# config VIMAGE
+# cd ../compile/VIMAGE
+# make cleandepend && make depend
+# make
+# make install
+\end{verbatim}
+
+When the last command ends use the \texttt{reboot} command to restart the
+computer:
+
+\texttt{\# reboot}
+
+\subsection{Running IMUNES on FreeBSD}
+
+After login execute the \texttt{startx} command to start the window manager.
+Open a terminal and start imunes:
+
+\texttt{\# imunes}
+
+Now you can create an arbitrary network topology or something like shown in
+Figure \ref{fig:simple_topology} and execute the experiment.
+
+\section{Installation of IMUNES on FreeBSD 10}
+
+\subsection{Installing FreeBSD}
+A comprehensive and explanatory guide for installing configuring and using
+FreeBSD can be found here:
+
+\begin{center}
+\url{http://www.freebsd.org/doc/handbook/}
+\end{center}
+
+Section 2 of the handbook describes the installation of the FreeBSD operating
+system: 
+\begin{center}
+\url{http://www.freebsd.org/doc/handbook/bsdinstall-start.html}
+\end{center}
+
+You can choose to install FreeBSD with two different architectures:
+\begin{itemize}
+\item i386 - 32-bit - works on most personal computers.
+\item amd64 - 64-bit - works on newer computers that support 64-bit processing.
+Adds support for more RAM.
+\end{itemize}
+
+\subsection{Step by step guide through the FreeBSD installation}
+\begin{enumerate}
+\item Insert the FreeBSD-10.x-RELEASE (i386 or amd64) medium on startup. Boot from it.
+\item Welcome - Choose "Install".
+\item Keymap Selection - Press "Select" to "Continue with default keymap" or choose an alternative one.
+\item Set Hostname - Set the hostname for your newly installed system (e.g. "imunes").
+\item Distribution Select - Select "src" and "lib32" (only on amd64 architecture) and deselect "games" and "ports".
+\item Partitioning - choose Auto or Manual
+	\begin{itemize}
+	\item Auto - Choose a disk from the list (e.g. "ada0"). Select "Entire Disk". In the Confirmation window choose "Yes" to erase the entire disk. In the "Partition Editor" review the changes. After finishing partitioning, choose "Finish" and then "Commit".
+	\item Manual - example for manual partitioning for a 40GB slice:
+	    \begin{verbatim}
+	    Part        Type            Mount   Size
+	    ada0p1      freebsd-boot            64kB
+	    ada0p2      freebsd-ufs     /        4GB
+	    ada0p3      freebsd-ufs     /var    10GB
+	    ada0p4      freebsd-ufs     /usr    24GB
+	    ada0p5      freebsd-swap    none     2GB
+	    \end{verbatim}
+	\end{itemize}
+	After finishing partitioning, choose "Finish" and then "Commit".
+NOTE: freebsd-boot boot partition will be created upon creation of the first freebsd-ufs partition.
+\item Archive extraction - Wait for the installation to complete.
+\item FreeBSD Installer - Enter your system administrator (root) password. Repeat the password.
+\item Network Configuration - Choose a network interface to configure (if any available).
+	\begin{enumerate}
+	\item Select "Yes" to configure IPv4 network if you use it. Then select "Yes" to configure DHCP if you use it.
+	\item Select "Yes" to configure IPv6 network if you use it. Then select "Yes" to configure SLAAC if you use it.
+	\item Resolver Configuration - If DHCP/SLAAC is used to configure the interface, some values may already be present. Otherwise, enter them yourself.
+	\end{enumerate}
+\item Timezones - If your timezone is not UTC, select "No" and choose your region and country (e.g. Europe->Croatia) and select "Yes" if asked for confirmation.
+\item System Configuration - Choose the "sshd" service to be started at boot and select "dumpdev" to enable crash dumps in /var.
+\item Add User Accounts - If necessary, add additional users now.
+\item Final Configuration - Choose "Exit".
+\item Manual Configuration - Nothing else is needed, so choose "No" to skip manual configuration.
+\item Complete - Reboot. (Don't forget to remove your FreeBSD boot media.)
+\end{enumerate}
+
+\subsection{Installing the FreeBSD X11 system - GUI}
+
+Login into the machine as root. Edit the file \texttt{/etc/rc.conf} with an editor e.g.
+\texttt{vi} and add the following lines at the end of the file:
+\begin{verbatim}
+hald_enable="YES"
+dbus_enable="YES"
+\end{verbatim}
+Save changes and exit.
+
+If necessary, bootstrap pkg:\\
+\texttt{\# env ASSUME\_ALWAYS\_YES=YES pkg bootstrap}
+
+Install neccessary packages:\\
+\texttt{\# pkg install xorg bash xpdf vim geany zip unzip xterm firefox wget}
+
+You can choose between multiple desktop environments:
+\begin{itemize}
+\item Gnome3-lite - complete, user-friendly desktop\\
+\texttt{\# pkg install gnome3-lite}
+\item XFCE 4 - lightweight desktop environment\\
+\texttt{\# pkg install xfce}
+\item IceWM - extremely lightweight window manager, low resource usage\\
+\texttt{\# pkg install icewm}
+\end{itemize}
+
+After the installation of one or multiple window manager we need to configure
+which will be used. Edit the file \texttt{.xinitrc} in the user folder and add a line
+depending on which window manager you want to use:
+\begin{itemize}
+\item Gnome3-lite\\
+\texttt{exec gnome-session}
+\item XFCE 4\\
+\texttt{exec startxfce4}
+\item IceWM\\
+\texttt{exec icewm-session}
+\end{itemize}
+
+Reboot the machine by issuing the \texttt{reboot} command:\\
+\texttt{\# reboot}
+
+After the machine has rebooted, log in and issue the \texttt{startx} command to
+start the chosen window manager:\\
+\texttt{\# startx}
+
+\subsection{Installing IMUNES}
+
+First we need to install the packages needed for IMUNES. To do this execute the
+following command:\\
+\texttt{\# pkg install tk86 ImageMagick tcllib wireshark socat git gmake}
+
+Checkout the last fresh IMUNES source through the public github repository:\\
+\texttt{\# git clone https://github.com/imunes/imunes.git}
+
+Now we need to install IMUNES and populate the virtual file system with
+predefined and required data. To install IMUNES on the system execute:\\
+\texttt{\# cd imunes}\\
+\texttt{\# make install}
+
+To setup the virtual file system execute:\\
+\texttt{\# imunes -p}
+
+Now the IMUNES GUI can be ran just by typing the \texttt{imunes} command in the
+terminal:\\
+\texttt{\# imunes}
+
+The GUI allows the specification of network topologies but to execute
+experiments the FreeBSD kernel must be compiled with a few additional options.
+
+\subsection{Recompiling the FreeBSD kernel with VIMAGE support}
+
+If you didn't include the src option in step 4 while installing FreeBSD, the
+kernel sources need to be fetched. Use your selected architecture and release combination:\\
+\texttt{\# fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/\emph{arch}/\emph{release}/src.txz}
+
+e.g. for FreeBSD 10.1 with amd64 architecture use:\\
+\texttt{\# fetch ftp://ftp.freebsd.org/pub/FreeBSD/releases/amd64/10.1-RELEASE/src.txz}
+
+Extract it by using:\\
+\texttt{\# tar xf src.txz -C /}
+
+Now the kernel source is available in the folder \texttt{/usr/src/sys}. Enter
+that folder:\\
+\texttt{\# cd /usr/src/sys}
+
+Depending which distribution architecture you have decided to install, i386 or
+amd64 the next command differs.
+
+For i386 enter the directory \texttt{i386/conf}:\\
+\texttt{\# cd i386/conf}
+
+For amd64 enter the directory \texttt{amd64/conf}:\\
+\texttt{\# cd amd64/conf}
+
+With an editor (vi, vim or geany) create a file named \texttt{VIMAGE}:\\
+\texttt{\# vi VIMAGE}
+
+Insert the following configuration in the \texttt{VIMAGE} file:\\
+\texttt{include	GENERIC \\
+nooptions FLOWTABLE \\
+nooptions SCTP \\
+options VIMAGE \\
+options VNET\_DEBUG \\
+options DDB \\
+ \\
+options IPSEC \\
+device crypto \\
+options IPSEC\_DEBUG \\
+options IPSEC\_NAT\_T \\
+ \\
+}
+
+Exit and save the file.
+
+Now execute the following commands:
+\begin{verbatim}
+# config VIMAGE
+# cd ../compile/VIMAGE
+\end{verbatim}
+
+If your machine has multiple cores, you can use the -j flag to distribute the make
+process on a number of cores. For example, to use 4 cores, run:
+\begin{verbatim}
+# make -j4 depend
+# make -j4
+# make install
+\end{verbatim}
+
+If you're running FreeBSD on a single core machine, just use the standard make
+commands:
+\begin{verbatim}
+# make depend
+# make
+# make install
+\end{verbatim}
+
+When the last command ends use the \texttt{reboot} command to restart the
+computer: \\
+\texttt{\# reboot}
+
+\subsection{Running IMUNES on FreeBSD}
+
+After login execute the \texttt{startx} command to start the window manager.
+Open a terminal and start imunes:
+
+\texttt{\# imunes}
+
+Now you can create an arbitrary network topology or something like shown in
+Figure \ref{fig:simple_topology} and execute the experiment.
+
+\section{Running IMUNES with VMware Player}
+
+We also have a VMware image containing the FreeBSD operating system including a
+complete and working installation of IMUNES.
+
+\subsection{Installing VMware}
+To run the image VMware Player (or any other similar VMware product) needs to be
+installed. VMware player can be downloaded from the following address (after
+registration with VMware):
+\begin{center}
+\url{http://www.vmware.com/products/player/}
+\end{center}
+The installation procedure is clearly explained in the VMware "Getting Started
+Guide" (\url{http://www.vmware.com/pdf/vmware_player310.pdf})
+
+\subsection{Downloading the VMware image}
+The VWware image can be downloaded
+from the following address:
+\begin{center}
+\url{http://imunes.tel.fer.hr/imunes/dl/index.html}
+\end{center}
+There are two archives, one in the RAR format and other in the ZIP format. They
+both contain the same image but the RAR file is considerably smaller. Download
+one of them and then unpack the contents of the archive in a folder with enough
+space (The unpacked image is almost 2.3GB large, but for runtime execution 4GB
+is needed.)
+
+\subsection{Running the VMware image}
+After the image is extracted go into the image directory. There shpuld be two
+files, a \texttt{vmdk} file containing the disk image and a \texttt{vmx} file
+containing the VMware machine settings. Double-clicking the \texttt{vmx} file
+will open the VMware Player and start booting the image. A window will pop-up
+asking you wheter you moved or copied the image. Select the option "I copied it"
+and click on the "OK" button.
+
+After a few minutes FreeBSD with the graphical interface will start. On the
+desktop there is an IMUNES icon to start IMUNES.
+
+%\section{Running IMUNES with VirtualBox}
+%
+%The VMware image of IMUNES can also be ran with VirtualBox which is an
+%Open-Source virtualization solution.
+%
+%\subsection{Installing Virtual Box}
+%VirtualBox can be downloaded from the
+%following page:
+%\begin{center}
+%\url{http://www.virtualbox.org/wiki/Downloads}
+%\end{center}
+%After VirtualBox is downloaded it needs to be installed. An extensive
+%installation guide is located here:
+%\url{http://www.virtualbox.org/manual/ch02.html}.
+%
+%\subsection{Setting up IMUNES in VirtualBox}
+%
+%
+%
+% import vmdk as an image
+% specify configuration
+% create image
+% start the image
+% copy xorg.conf
+% logout
+% run IMUNES
+
+\section{Installation of the IMUNES GUI on Linux}
+\label{sec:installation on linux}
+\textbf{NOTE:} Although you can draw network topology on any system that
+supports Tcl/Tk (Linux, FreeBSD, Windows, Mac OS X, Solaris), an  experiment
+can only be started on FreeBSD operation system with root permissions (Figure
+\ref{fig:execute_windows} and Figure  \ref{fig:execute_not_root})!.
+
+The first thing you need to do is install Tcl/Tk. The easiest way to do this is
+using ActiveState ActiveTcl 8.6. To download the installation files visit:
+\begin{center}
+\url{http://www.activestate.com/activetcl/downloads}
+\end{center}
+
+Download the version 8.6, as IMUNES cannot run on earlier versions. Download
+the version that is designed for your operating system: x86 if you're using
+32bit Linux or x86\_64 if you're using 64bit Linux. Select the option \emph{AS
+package}.
+
+When the package is downloaded extract it using an archive manager or through
+the shell with the command:
+
+\texttt{\# tar xzvf filename.tar.gz}
+
+Now enter the extracted directory and execute the file \texttt{install.sh} with
+root permissions. In the shell this is done with the line
+
+\texttt{\# sudo ./install.sh} 
+
+and provide the superuser password. If you don't have superuser permissions you
+can install ActiveTcl in your user directory. Make a directory in which
+ActiveTcl will be installed, and during the installation provide the path to
+that directory. After the installation you just need to put the ActiveTcl bin
+directory in the PATH variable.
+
+For a csh or compatible (tcsh) perform:
+
+\texttt{\# setenv PATH "/opt/ActiveTcl/bin:\$PATH"}
+
+For a sh or similar perform:
+
+\texttt{\# PATH="/opt/ActiveTcl/bin:\$PATH"}
+
+\texttt{\# export PATH}
+
+To make the changes permanent add this lines to your shell rc configuration
+file (e.g. .bashrc for bash, .cshrc for csh).
+
+To run IMUNES with full functionality you need the \texttt{imagemagick}
+package. You can install it through package managers or through shell.
+
+On Debian, Ubuntu and other Debian based distributions you will use:
+
+\texttt{\# sudo apt-get install imagemagick}
+
+On Fedora, Red Hat and other Red Hat based distributions you will use:
+
+\texttt{\# su}
+
+\texttt{\# yum install imagemagick}
+
+Now we can fetch the latest version of IMUNES through CVS. To do this you need
+to have the \texttt{cvs} package installed. This is done the same way as the
+ImageMagick installation:
+
+\texttt{\# sudo apt-get install cvs}
+
+or
+
+\texttt{\# su}
+
+\texttt{\# yum install cvs}
+
+The line for fetching IMUNES from CVS is as follows:
+
+\texttt{\# cvs -d :pserver:anonymous@imunes.net/usr/local/src/cvsroot co
+imunes}
+
+Now enter the imunes directory and start IMUNES:
+
+\texttt{\# cd imunes}
+
+\texttt{\# ./imunes}
+
+\section{Installation of the IMUNES GUI on Windows}
+\textbf{NOTE:} Although you can draw network topology on any system that
+supports Tcl/Tk (Linux, FreeBSD, Windows, Mac OS X, Solaris), an  experiment
+can only be started on FreeBSD operation system with root permissions (Figure
+\ref{fig:execute_windows} and Figure  \ref{fig:execute_not_root})!.
+
+The first thing you need to do is install Tcl/Tk. The easiest way to do this is
+using ActiveState ActiveTcl 8.6. To download the installation files visit:
+
+\begin{center}
+\url{http://www.activestate.com/activetcl/downloads}
+\end{center}
+ 
+Download the version 8.6, as IMUNES cannot run on earlier versions. Download
+the package by clicking on the \emph{Windows Installer (EXE)} option. When the
+file is downloaded start the installation by double clicking on the file.
+Follow the installation instructions to the end.
+
+Now, to enable the full functionality of IMUNES you need to download the
+ImageMagick program from:
+
+\begin{center}
+\url{http://www.imagemagick.org/script/binary-releases.php}
+\end{center}
+
+Go to the \emph{Windows Binary Release} section. Select the appropriate file.
+Download it and install it following the installation instructions.
+
+To start IMUNES you need the latest IMUNES release. If you have access to a
+Unix/Linux system you can download it like it is shown at the end of the
+previous section (Section \ref{sec:installation on linux}). Then transfer it on
+the Windows machine.
+
+Enter the imunes directory and double click the file \texttt{imunes.tcl} to
+start IMUNES.

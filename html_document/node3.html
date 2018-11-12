@@ -1,0 +1,753 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2017.2 (Released Jan 23, 2017) -->
+<HTML>
+<HEAD>
+<TITLE>3. User Interface Layout</TITLE>
+<META NAME="description" CONTENT="3. User Interface Layout">
+<META NAME="keywords" CONTENT="html_document">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2017.2">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="html_document.css">
+
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="html_document.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html246"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html244"
+  HREF="html_document.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html238"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html247"
+  HREF="node4.html">4. Quick Intro</A>
+<B> Up:</B> <A NAME="tex2html245"
+  HREF="html_document.html">IMUNES manual</A>
+<B> Previous:</B> <A NAME="tex2html239"
+  HREF="node2.html">2. Introduction</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A NAME="tex2html248"
+  HREF="node3.html#SECTION00310000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN> Toolbox</A>
+<LI><A NAME="tex2html249"
+  HREF="node3.html#SECTION00320000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN> Menubar</A>
+<UL>
+<LI><A NAME="tex2html250"
+  HREF="node3.html#SECTION00321000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> File Menu</A>
+<LI><A NAME="tex2html251"
+  HREF="node3.html#SECTION00322000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> Edit Menu</A>
+<LI><A NAME="tex2html252"
+  HREF="node3.html#SECTION00323000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN> Canvas Menu</A>
+<LI><A NAME="tex2html253"
+  HREF="node3.html#SECTION00324000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN> View Menu</A>
+<LI><A NAME="tex2html254"
+  HREF="node3.html#SECTION00325000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN> Tools Menu</A>
+<LI><A NAME="tex2html255"
+  HREF="node3.html#SECTION00326000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN> Topogen Menu</A>
+<LI><A NAME="tex2html256"
+  HREF="node3.html#SECTION00327000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">7</SPAN> Widgets Menu</A>
+<LI><A NAME="tex2html257"
+  HREF="node3.html#SECTION00328000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">8</SPAN> Events Menu</A>
+<LI><A NAME="tex2html258"
+  HREF="node3.html#SECTION00329000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">9</SPAN> Experiment Menu</A>
+<LI><A NAME="tex2html259"
+  HREF="node3.html#SECTION003210000000000000000"><SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">10</SPAN> Help Menu</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00300000000000000000"></A>
+<A NAME="sec:UserInterfaceLayout"></A>
+<BR>
+<SPAN CLASS="arabic">3</SPAN>. User Interface Layout
+</H1>
+IMUNES can be used either through the simple Tcl/Tk based graphical user
+interface (GUI) or through the command line interface (CLI).
+
+<P>
+We will run IMUNES on FreeBSD with some kind of X11 window manager and explain
+the main GUI components. If X11 is not running you can start it using
+<TT>startx</TT> command. To run IMUNES GUI use <TT>imunes</TT> command.
+
+<P>
+IMUNES GUI is a simple Tcl/Tk based management console, allowing specification
+and management of virtual network topologies. Its main parts are the work space
+in the middle, called canvas, the menubar on the top, the toolbox on the left
+side and the statusbar at the bottom (Figure <A HREF="#fig:imunes_gui">3.1</A>)
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:imunes_gui"></A><A NAME="295"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.1:</STRONG>
+<SPAN  CLASS="textit">IMUNES GUI</SPAN></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<BR>
+<BR>
+<IMG
+  WIDTH="1038" HEIGHT="775" ALIGN="BOTTOM" BORDER="0"
+ SRC="./gui.png"
+ ALT="Image gui"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+The default working mode after the initial start (or after creating a new
+virtual network configuration file with the <SPAN  CLASS="textit">File <SPAN CLASS="MATH"><IMG
+ WIDTH="20" HEIGHT="14" ALIGN="BOTTOM" BORDER="0"
+ SRC="img1.png"
+ ALT="$\to$"></SPAN> New</SPAN> option from
+the menubar) is edit mode. The edit mode is used to build and configure network
+topologies, contrary to the execute mode whose purpose is the network
+simulation. The network simulation will be explained later in the Section
+<A HREF="node4.html#sec:simulating_a_simple_network">4.1.3</A>.
+
+<P>
+
+<H1><A NAME="SECTION00310000000000000000"></A>
+<A NAME="sec:toolbox"></A>
+<BR>
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">1</SPAN> Toolbox
+</H1>
+The toolbox, placed on the left side of the GUI, contains tools for building
+network topologies and tools for adding annotations (Figure
+<A HREF="#fig:toolbox_tools">3.2</A>).These tools are all available in the edit mode. In
+the execute mode, these tools (except for the <SPAN  CLASS="textit">Select tool</SPAN>) are shaded
+and cannot be used.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:toolbox_tools"></A><A NAME="296"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.2:</STRONG>
+<SPAN  CLASS="textit">Toolbox tools</SPAN></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>
+<BR>
+<BR>
+<IMG
+  WIDTH="570" HEIGHT="363" ALIGN="BOTTOM" BORDER="0"
+ SRC="./toolbox.png"
+ ALT="Image toolbox"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+Each toolbox item shown in Figure <A HREF="#fig:toolbox_tools">3.2</A>, is described below.
+
+<P>
+<SPAN  CLASS="textbf">Selecting elements:</SPAN> 
+  
+<UL>
+<LI><SPAN  CLASS="textit">Select tool</SPAN> - The default tool for selecting and moving elements.
+  
+</LI>
+</UL>
+
+<P>
+<SPAN  CLASS="textbf">Building the network topology:</SPAN> 
+  
+<UL>
+<LI><SPAN  CLASS="textit">Link</SPAN> - A tool that is used to create network links between nodes.
+</LI>
+<LI><SPAN  CLASS="textbf">L2 - Link layer nodes (center column):</SPAN> 
+  
+<UL>
+<LI><SPAN  CLASS="textit">Hub</SPAN> - A link layer element that forwards every incoming packet to all of its ports and, thus, to every connected node.
+</LI>
+<LI><SPAN  CLASS="textit">LAN switch</SPAN> - A link layer element that forwards incoming packets to connected nodes using the table of destination addresses and its ports.
+</LI>
+<LI><SPAN  CLASS="textit">Click switch</SPAN> - A link layer element that forwards incoming packets to connected nodes using the table of destination addresses and its ports (using Click modular switch).
+</LI>
+<LI><SPAN  CLASS="textit">External interface</SPAN> - A tool that provides the possibility to connect a virtual node with the physical interface (e.g. to give the node the access to the Internet).
+</LI>
+<LI><SPAN  CLASS="textit">RSTP switch</SPAN> - A Rapid Spanning Tree Protocol switch that can prevent bridge loops and allow providing backup links if an active link fails.
+</LI>
+<LI><SPAN  CLASS="textit">Filter node</SPAN> - A link layer element that can filter/divert/forward packets depending on their content.
+</LI>
+<LI><SPAN  CLASS="textit">Packet generator</SPAN> - A link layer element to craft custom packets and send them with given packet rate.
+  
+</LI>
+</UL>
+</LI>
+<LI><SPAN  CLASS="textbf">L3 - Network layer nodes (right column):</SPAN> 
+  
+<UL>
+<LI><SPAN  CLASS="textit">External connection</SPAN> - A tool that provides the possibility to connect your host PC with a virtual node by creating an interface on your computer.
+</LI>
+<LI><SPAN  CLASS="textit">Router</SPAN> - A network layer element that is capable of packet forwarding using the routes obtained by dynamic routing protocols (available through quagga or xorp by default installation or any other standard FreeBSD routing daemon).
+</LI>
+<LI><SPAN  CLASS="textit">Click Router</SPAN> - A network layer element that is capable of packet forwarding using the routes obtained by dynamic routing protocols (using Click modular router).
+</LI>
+<LI><SPAN  CLASS="textit">Host</SPAN> - A network layer element that does not forward packets and has static routes. It starts standard network services, via portmap and inetd.
+</LI>
+<LI><SPAN  CLASS="textit">PC</SPAN> - A network layer element that also does not forward packets and has static routes. Unlike host, it does not start any network services.
+</LI>
+<LI><SPAN  CLASS="textit">NAT64</SPAN> - A router node which is capable to enable translation between IPv4 and IPv6 protocols using a form of network address translation (NAT).
+  
+</LI>
+</UL>
+</LI>
+</UL>
+
+<P>
+<SPAN  CLASS="textbf">Adding annotations:</SPAN> 
+  
+<UL>
+<LI><SPAN  CLASS="textit">Text</SPAN> - A tool for adding new text on the canvas.
+</LI>
+<LI><SPAN  CLASS="textit">Oval</SPAN> - A tool for adding a new oval shape on the canvas.
+</LI>
+<LI><SPAN  CLASS="textit">Rectangle</SPAN> - A tool for adding a new rectangle shape on the canvas.
+</LI>
+<LI><SPAN  CLASS="textit">Freeform</SPAN> - A tool for adding a new freeform shape on the canvas.
+  
+</LI>
+</UL>
+
+<P>
+
+<H1><A NAME="SECTION00320000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN> Menubar</A>
+</H1>
+  The menubar consists of menus that provide access to various functions (Figure
+  <A HREF="#fig:menubar">3.3</A>). Some options from the menubar are automatically disabled
+  in the execute mode.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:menubar"></A><A NAME="297"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.3:</STRONG>
+<SPAN  CLASS="textit">Menubar</SPAN></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>  <BR>
+<BR>
+  <IMG
+  WIDTH="639" HEIGHT="29" ALIGN="BOTTOM" BORDER="0"
+ SRC="./menubar.png"
+ ALT="Image menubar"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H2><A NAME="SECTION00321000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">1</SPAN> File Menu</A>
+</H2>
+  The <SPAN  CLASS="textit">File</SPAN> menu contains options for configuration files management
+(Figure <A HREF="#fig:file_menu">3.4</A>).
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:file_menu"></A><A NAME="298"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.4:</STRONG>
+<SPAN  CLASS="textit">File menu</SPAN></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>  <BR>
+<BR>
+  <IMG
+  WIDTH="147" HEIGHT="255" ALIGN="BOTTOM" BORDER="0"
+ SRC="./file_menu.png"
+ ALT="Image file_menu"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="textit">New</SPAN> - Create a new virtual network configuration file.
+</LI>
+<LI><SPAN  CLASS="textit">Open</SPAN> - Open an existing IMUNES network configuration file (.imn)
+by selecting it from the invoked <SPAN  CLASS="textit">File Open</SPAN> dialog.
+</LI>
+<LI><SPAN  CLASS="textit">Save</SPAN>, <SPAN  CLASS="textit">Save As</SPAN> - Save the current virtual network topology
+in IMUNES network configuration file format (.imn).
+</LI>
+<LI><SPAN  CLASS="textit">Print</SPAN> - Print the current canvas using Tcl/Tk PostScript and
+send it through the pipe to the default printing command (<SPAN  CLASS="textit">lpr</SPAN>) (that can
+also be changed, (e.g &gt; <SPAN  CLASS="textit">filename</SPAN>)).
+</LI>
+<LI><SPAN  CLASS="textit">Print to file</SPAN> - Print all canvases to PDF or PostScript file. 
+</LI>
+<LI><SPAN  CLASS="textit">Close</SPAN> - Close the virtual network configuration file. NOTE: If
+the experiment is not explicitly terminated it remains running.
+</LI>
+<LI><SPAN  CLASS="textit">Quit</SPAN> - Exit the IMUNES GUI.
+</LI>
+<LI><SPAN  CLASS="textit">Recently used files</SPAN> - A list of recently used files. Clicking on
+one of the files opens that configuration file.
+  
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00322000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">2</SPAN> Edit Menu</A>
+</H2>
+  The <SPAN  CLASS="textit">Edit</SPAN> menu contains options for handling elements on the canvas.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:edit_menu"></A><A NAME="299"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.5:</STRONG>
+<SPAN  CLASS="textit">Edit menu</SPAN></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>  <BR>
+<BR>
+  <IMG
+  WIDTH="155" HEIGHT="200" ALIGN="BOTTOM" BORDER="0"
+ SRC="./edit_menu.png"
+ ALT="Image edit_menu"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="textit">Undo</SPAN> - Undo the last change on the canvas reverting it to an
+older state.
+</LI>
+<LI><SPAN  CLASS="textit">Redo</SPAN> - Reverse the undo command.
+</LI>
+<LI><SPAN  CLASS="textit">Cut</SPAN>, <SPAN  CLASS="textit">Copy</SPAN>, <SPAN  CLASS="textit">Paste</SPAN> - Cut or copy elements from
+source and paste them to destination.
+</LI>
+<LI><SPAN  CLASS="textit">Select all</SPAN> - Select a whole network topology.
+</LI>
+<LI><SPAN  CLASS="textit">Select adjacent</SPAN> - Select nodes connected to the selected
+node(s). This feature is also available through the node menu.
+  
+</LI>
+</UL>
+<H2><A NAME="SECTION00323000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">3</SPAN> Canvas Menu</A>
+</H2>
+  The <SPAN  CLASS="textit">Canvas</SPAN> menu contains options for canvas management.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:canvas_menu"></A><A NAME="300"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.6:</STRONG>
+<SPAN  CLASS="textit">Canvas menu</SPAN></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>  <BR>
+<BR>
+  <IMG
+  WIDTH="185" HEIGHT="241" ALIGN="BOTTOM" BORDER="0"
+ SRC="./canvas_menu.png"
+ ALT="Image canvas_menu"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="textit">New</SPAN> - Create a new empty canvas.
+</LI>
+<LI><SPAN  CLASS="textit">Rename</SPAN> - Rename the current canvas through the invoked dialog.
+</LI>
+<LI><SPAN  CLASS="textit">Delete</SPAN> - Delete the current canvas.
+</LI>
+<LI><SPAN  CLASS="textit">Resize</SPAN> - Resize the current canvas through the invoked dialog.
+</LI>
+<LI><SPAN  CLASS="textit">Background image</SPAN> - Change background on the current canvas (see
+Section <A HREF="node5.html#sec:CanvasBackgroundImage">5.4.2</A>).
+</LI>
+<LI><SPAN  CLASS="textit">Previous, Next, First, Last</SPAN> - Switch between available canvases.
+  
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00324000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">4</SPAN> View Menu</A>
+</H2>
+  The <SPAN  CLASS="textit">View</SPAN> menu contains options for showing / hiding links and nodes
+parameters on the canvas, options for changing icon size, zooming options, etc.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:view_menu"></A><A NAME="301"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.7:</STRONG>
+<SPAN  CLASS="textit">View menu</SPAN></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>  <BR>
+<BR>
+  <IMG
+  WIDTH="205" HEIGHT="406" ALIGN="BOTTOM" BORDER="0"
+ SRC="./view_menu.png"
+ ALT="Image view_menu"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="textit">Icon size</SPAN> - Change the size (normal or small) of all network
+elements (see Section <A HREF="node5.html#sec:Icons">5.4.3</A>).  
+</LI>
+<LI><SPAN  CLASS="textit">Show [network element parameter]</SPAN> - Show or hide information such
+as interface names, IPv4/IPv6 addresses, etc. These options are usually saved
+in the .imn files, providing consistent look of scenarios running on different
+computers.
+</LI>
+<LI><SPAN  CLASS="textit">Show Topology Tree</SPAN> - Show or hide the tree with a list of all
+network topology elements.
+</LI>
+<LI><SPAN  CLASS="textit">Show Background Image</SPAN> - Show or hide background image.
+</LI>
+<LI><SPAN  CLASS="textit">Show Annotations</SPAN> - Show or hide annotations (text, oval,
+rectangle).
+</LI>
+<LI><SPAN  CLASS="textit">Show Grid</SPAN> - Show or hide grid.
+</LI>
+<LI><SPAN  CLASS="textit">Zoom In, Zoom Out</SPAN> - Magnify (<SPAN  CLASS="textit">Zoom In</SPAN>) or reduce
+(<SPAN  CLASS="textit">Zoom Out</SPAN>) the size of the display. 
+</LI>
+<LI><SPAN  CLASS="textit">Themes</SPAN> - Choose one of the themes from the submenu. Each theme
+represents a collection of styles, where a style describes the appearance (or
+appearances) of a Ttk widget class.
+  
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00325000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">5</SPAN> Tools Menu</A>
+</H2>
+  The <SPAN  CLASS="textit">Tools</SPAN> menu contains the network topology management tools.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:tools_menu"></A><A NAME="302"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.8:</STRONG>
+<SPAN  CLASS="textit">Tools menu</SPAN></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>  <BR>
+<BR>
+  <IMG
+  WIDTH="240" HEIGHT="273" ALIGN="BOTTOM" BORDER="0"
+ SRC="./tools_menu.png"
+ ALT="Image tools_menu"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="textit">Auto rearrange all</SPAN> - Automatically rearrange position of all
+network elements on canvas.
+</LI>
+<LI><SPAN  CLASS="textit">Auto rearrange selected</SPAN> - Automatically rearrange position of
+the selected group of network elements.
+</LI>
+<LI><SPAN  CLASS="textit">Align to grid</SPAN> - Arrange all network elements on canvas aligning
+them to grid.
+</LI>
+<LI><SPAN  CLASS="textit">IPv4 auto-assign addresses/routes</SPAN> - Automatically assign IPv4
+addresses and routes upon creating a new node.
+</LI>
+<LI><SPAN  CLASS="textit">IPv6 auto-assign addresses/routes</SPAN> - Automatically assign IPv6
+addresses and routes upon creating a new node.
+</LI>
+<LI><SPAN  CLASS="textit">Auto-generate /etc/hosts file</SPAN> - Create a <SPAN  CLASS="textit">hosts</SPAN> file on
+every node and map every other node hostname with its address.
+</LI>
+<LI><SPAN  CLASS="textit">Randomize MAC bytes</SPAN> - Randomizes the 4th and 5th byte of the
+automatically generated MAC address.
+</LI>
+<LI><SPAN  CLASS="textit">IPv4 address pool</SPAN> - Set variable-mask IPv4 address pool through
+the invoked dialog in order to replace default 10.0.0.0/24 address pool (see
+Section <A HREF="node5.html#sec:IPv4AddressPool">5.3.3</A>). This will be applied to all the
+subsequentially created network layer elements. 
+</LI>
+<LI><SPAN  CLASS="textit">IPv6 address pool</SPAN> - Set variable-mask IPv6 address pool through
+the invoked dialog in order to replace default fc00::/64 address pool (see
+Section <A HREF="node5.html#sec:IPv6AddressPool">5.3.4</A>). This will be applied to all the
+subsequentially created network layer elements. 
+</LI>
+<LI><SPAN  CLASS="textit">Routing protocol defaults</SPAN> - Set the routing protocol defaults
+(routing model and protocols) through the invoked dialog (see Section
+<A HREF="node5.html#sec:RoutingProtocolDefaults">5.3.5</A>). This will be applied to all selected
+routers (if any) at the time of change, as well as to all the subsequentially
+created ones.
+  
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00326000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">6</SPAN> Topogen Menu</A>
+</H2>
+  The <SPAN  CLASS="textit">TopoGen</SPAN> menu contains options for simple and fast specification of
+various network topologies (see Section <A HREF="node5.html#sec:GeneratingNetworkTopology">5.3.2</A>).
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:topogen_menu"></A><A NAME="303"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.9:</STRONG>
+<SPAN  CLASS="textit">Topogen menu</SPAN></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>  <BR>
+<BR>
+  <IMG
+  WIDTH="89" HEIGHT="190" ALIGN="BOTTOM" BORDER="0"
+ SRC="./topogen_menu.png"
+ ALT="Image topogen_menu"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<H2><A NAME="SECTION00327000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">7</SPAN> Widgets Menu</A>
+</H2>
+  The <SPAN  CLASS="textit">Widgets</SPAN> menu contains options for displaying information about the
+virtual network. To see these information, place the mouse pointer on the
+virtual node of interest after selecting a widget.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:widgets_menu"></A><A NAME="304"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.10:</STRONG>
+<SPAN  CLASS="textit">Widgets menu</SPAN></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>  <BR>
+<BR>
+  <IMG
+  WIDTH="149" HEIGHT="318" ALIGN="BOTTOM" BORDER="0"
+ SRC="./widgets_menu.png"
+ ALT="Image widgets_menu"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="textit">None</SPAN> - Do not show any information about the virtual network.
+</LI>
+<LI><SPAN  CLASS="textit">ifconfig</SPAN> - Show network interfaces parameters.
+</LI>
+<LI><SPAN  CLASS="textit">IPv4 Routing table</SPAN> - Show the IPv4 routing table.
+</LI>
+<LI><SPAN  CLASS="textit">IPv6 Routing table</SPAN> - Show the IPv6 routing table.
+</LI>
+<LI><SPAN  CLASS="textit">RIP routes info</SPAN> - Show the RIP routing information.
+</LI>
+<LI><SPAN  CLASS="textit">RIPng routes info</SPAN> - Show the RIPng routing information.
+</LI>
+<LI><SPAN  CLASS="textit">Process list</SPAN> - Show the running processes.
+</LI>
+<LI><SPAN  CLASS="textit">IPv4 sockets</SPAN> - Show the IPv4 sockets.
+</LI>
+<LI><SPAN  CLASS="textit">IPv6 sockets</SPAN> - Show the IPv6 sockets.
+</LI>
+<LI><SPAN  CLASS="textit">View startup script</SPAN> - Show the startup script /boot.conf
+</LI>
+<LI><SPAN  CLASS="textit">View startup log</SPAN> - Show the startup log /out.log
+</LI>
+<LI><SPAN  CLASS="textit">Custom...</SPAN> - Allows the specification of the command that will be
+executed inside a virtual node upon placing the mouse pointer on the virtual
+node. The result of the command will be displayed inside the widget. 
+ 
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00328000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">8</SPAN> Events Menu</A>
+</H2>
+ The <SPAN  CLASS="textit">Events</SPAN> menu - This menu is used to configure event scheduling. The
+ event scheduling will be explained later in the Section
+ <A HREF="node5.html#sec:using_event_scheduler">5.5</A>.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:events_menu"></A><A NAME="305"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.11:</STRONG>
+<SPAN  CLASS="textit">Events menu</SPAN></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>  <BR>
+<BR>
+  <IMG
+  WIDTH="122" HEIGHT="105" ALIGN="BOTTOM" BORDER="0"
+ SRC="./events_menu.png"
+ ALT="Image events_menu"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="textit">Start scheduling</SPAN> - Start the scheduling of events.
+</LI>
+<LI><SPAN  CLASS="textit">Stop scheduling</SPAN> - Stop the scheduling of events.
+</LI>
+<LI><SPAN  CLASS="textit">Event editor</SPAN> - Schedule events on the links through the opened
+editor.
+ 
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION00329000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">9</SPAN> Experiment Menu</A>
+</H2>
+  The <SPAN  CLASS="textit">Experiment</SPAN> menu is used to start and terminate an experiment. It
+  also enables to attach to a running experiment.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:experiment_menu"></A><A NAME="306"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.12:</STRONG>
+<SPAN  CLASS="textit">Experiment menu</SPAN></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>  <BR>
+<BR>
+  <IMG
+  WIDTH="151" HEIGHT="120" ALIGN="BOTTOM" BORDER="0"
+ SRC="./experiment_menu.png"
+ ALT="Image experiment_menu"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+
+<UL>
+<LI><SPAN  CLASS="textit">Execute</SPAN> - Start an experiment and switch to the execute mode. In
+the process of starting an experiment, IMUNES creates and configures the
+virtual network. All events during that process will be shown in the statusbar.
+</LI>
+<LI><SPAN  CLASS="textit">Terminate</SPAN> - Terminate an experiment and switch to the edit mode.
+During the termination process, IMUNES will shut down all network elements and
+it will terminate active services on each node. The termination is finished
+when the message about the successful cleanup shows up in the statusbar.
+</LI>
+<LI><SPAN  CLASS="textit">Restart</SPAN> - Terminate and restart the running experiment.
+</LI>
+<LI><SPAN  CLASS="textit">Attach to experiment</SPAN> - This option opens opens a window with the
+list of running experiments on the current computer. It allows to resume
+running experiments that are shown in the <SPAN  CLASS="textit">Attach to experiment</SPAN> window
+shown in Figure <A HREF="node5.html#fig:attach_to_experiment">5.9</A>.
+  
+</LI>
+</UL>
+
+<P>
+
+<H2><A NAME="SECTION003210000000000000000">
+<SPAN CLASS="arabic">3</SPAN>.<SPAN CLASS="arabic">2</SPAN>.<SPAN CLASS="arabic">10</SPAN> Help Menu</A>
+</H2>
+  The <SPAN  CLASS="textit">Help</SPAN> menu contains the option <SPAN  CLASS="textit">About</SPAN> that invokes the
+<SPAN  CLASS="textit">About</SPAN> dialog box for viewing version information.
+
+<P>
+
+<DIV ALIGN="CENTER"><A NAME="fig:help_menu"></A><A NAME="307"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure 3.13:</STRONG>
+<SPAN  CLASS="textit">Help menu</SPAN></CAPTION>
+<TR><TD>
+<DIV ALIGN="CENTER">
+
+</DIV>  <BR>
+<BR>
+  <IMG
+  WIDTH="58" HEIGHT="50" ALIGN="BOTTOM" BORDER="0"
+ SRC="./help_menu.png"
+ ALT="Image help_menu"></TD></TR>
+</TABLE>
+</DIV>
+
+<P>
+   
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html246"
+  HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html244"
+  HREF="html_document.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html238"
+  HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html247"
+  HREF="node4.html">4. Quick Intro</A>
+<B> Up:</B> <A NAME="tex2html245"
+  HREF="html_document.html">IMUNES manual</A>
+<B> Previous:</B> <A NAME="tex2html239"
+  HREF="node2.html">2. Introduction</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

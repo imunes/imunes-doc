@@ -1,0 +1,345 @@
+\chapter{User Interface Layout}
+\label{sec:UserInterfaceLayout}
+IMUNES can be used either through the simple Tcl/Tk based graphical user
+interface (GUI) or through the command line interface (CLI).
+
+We will run IMUNES on FreeBSD with some kind of X11 window manager and explain
+the main GUI components. If X11 is not running you can start it using
+\texttt{startx} command. To run IMUNES GUI use \texttt{imunes} command.
+
+IMUNES GUI is a simple Tcl/Tk based management console, allowing specification
+and management of virtual network topologies. Its main parts are the work space
+in the middle, called canvas, the menubar on the top, the toolbox on the left
+side and the statusbar at the bottom (Figure \ref{fig:imunes_gui})
+
+\begin{figure}[H]
+\centering
+\vspace{10pt}
+\includegraphics[width=\textwidth]{./images/gui.png}
+\caption{\emph{IMUNES GUI}}
+\label{fig:imunes_gui}
+\end{figure}
+
+The default working mode after the initial start (or after creating a new
+virtual network configuration file with the \emph{File $\to$ New} option from
+the menubar) is edit mode. The edit mode is used to build and configure network
+topologies, contrary to the execute mode whose purpose is the network
+simulation. The network simulation will be explained later in the Section
+\ref{sec:simulating a simple network}.
+
+\section{Toolbox}
+\label{sec:toolbox}
+The toolbox, placed on the left side of the GUI, contains tools for building
+network topologies and tools for adding annotations (Figure
+\ref{fig:toolbox_tools}).These tools are all available in the edit mode. In
+the execute mode, these tools (except for the \emph{Select tool}) are shaded
+and cannot be used.
+
+\begin{figure}[H]
+\centering
+\vspace{10pt}
+\includegraphics[width=\textwidth]{./images/toolbox.png}
+\caption{\emph{Toolbox tools}}
+\label{fig:toolbox_tools}
+\end{figure}
+
+Each toolbox item shown in Figure \ref{fig:toolbox_tools}, is described below.
+
+  \textbf{Selecting elements:} \hfill
+  \begin{itemize}
+  \item \emph{Select tool} - The default tool for selecting and moving elements.
+  \end{itemize}
+
+  \textbf{Building the network topology:} \hfill
+  \begin{itemize}
+  \item \emph{Link} - A tool that is used to create network links between nodes.
+  \item \textbf{L2 - Link layer nodes (center column):} \hfill
+  \begin{itemize}
+  \item \emph{Hub} - A link layer element that forwards every incoming packet to all of its ports and, thus, to every connected node.
+  \item \emph{LAN switch} - A link layer element that forwards incoming packets to connected nodes using the table of destination addresses and its ports.
+  \item \emph{Click switch} - A link layer element that forwards incoming packets to connected nodes using the table of destination addresses and its ports (using Click modular switch).
+  \item \emph{External interface} - A tool that provides the possibility to connect a virtual node with the physical interface (e.g. to give the node the access to the Internet).
+  \item \emph{RSTP switch} - A Rapid Spanning Tree Protocol switch that can prevent bridge loops and allow providing backup links if an active link fails.
+  \item \emph{Filter node} - A link layer element that can filter/divert/forward packets depending on their content.
+  \item \emph{Packet generator} - A link layer element to craft custom packets and send them with given packet rate.
+  \end{itemize}
+  \item \textbf{L3 - Network layer nodes (right column):} \hfill
+  \begin{itemize}
+  \item \emph{External connection} - A tool that provides the possibility to connect your host PC with a virtual node by creating an interface on your computer.
+  \item \emph{Router} - A network layer element that is capable of packet forwarding using the routes obtained by dynamic routing protocols (available through quagga or xorp by default installation or any other standard FreeBSD routing daemon).
+  \item \emph{Click Router} - A network layer element that is capable of packet forwarding using the routes obtained by dynamic routing protocols (using Click modular router).
+  \item \emph{Host} - A network layer element that does not forward packets and has static routes. It starts standard network services, via portmap and inetd.
+  \item \emph{PC} - A network layer element that also does not forward packets and has static routes. Unlike host, it does not start any network services.
+  \item \emph{NAT64} - A router node which is capable to enable translation between IPv4 and IPv6 protocols using a form of network address translation (NAT).
+  \end{itemize}
+  \end{itemize}
+
+  \textbf{Adding annotations:} \hfill
+  \begin{itemize}
+  \item \emph{Text} - A tool for adding new text on the canvas.
+  \item \emph{Oval} - A tool for adding a new oval shape on the canvas.
+  \item \emph{Rectangle} - A tool for adding a new rectangle shape on the canvas.
+  \item \emph{Freeform} - A tool for adding a new freeform shape on the canvas.
+  \end{itemize}
+
+  \section{Menubar}
+  The menubar consists of menus that provide access to various functions (Figure
+  \ref{fig:menubar}). Some options from the menubar are automatically disabled
+  in the execute mode.
+
+  \begin{figure}[H]
+  \centering
+  \vspace{10pt}
+  \includegraphics[width=\textwidth]{./images/menubar.png}
+  \caption{\emph{Menubar}}
+  \label{fig:menubar}
+  \end{figure}
+
+  \subsection{File Menu}
+  The \emph{File} menu contains options for configuration files management
+(Figure \ref{fig:file_menu}).
+  
+  \begin{figure}[H]
+  \centering
+  \vspace{10pt}
+  \includegraphics[width=0.21\textwidth]{./images/file_menu.png}
+  \caption{\emph{File menu}}
+  \label{fig:file_menu}
+  \end{figure}
+  
+  \begin{itemize}
+  \item \emph{New} - Create a new virtual network configuration file.
+  \item \emph{Open} - Open an existing IMUNES network configuration file (.imn)
+by selecting it from the invoked \emph{File Open} dialog.
+  \item \emph{Save}, \emph{Save As} - Save the current virtual network topology
+in IMUNES network configuration file format (.imn).
+  \item \emph{Print} - Print the current canvas using Tcl/Tk PostScript and
+send it through the pipe to the default printing command (\emph{lpr}) (that can
+also be changed, (e.g > \emph{filename})).
+  \item \emph{Print to file} - Print all canvases to PDF or PostScript file. 
+  \item \emph{Close} - Close the virtual network configuration file. NOTE: If
+the experiment is not explicitly terminated it remains running.
+  \item \emph{Quit} - Exit the IMUNES GUI.
+  \item \emph{Recently used files} - A list of recently used files. Clicking on
+one of the files opens that configuration file.
+  \end{itemize}
+  
+   \subsection{Edit Menu}
+  The \emph{Edit} menu contains options for handling elements on the canvas.
+  
+  \begin{figure}[H]
+  \centering
+  \vspace{10pt}
+  \includegraphics[width=0.23\textwidth]{./images/edit_menu.png}
+  \caption{\emph{Edit menu}}
+  \label{fig:edit_menu}
+  \end{figure}
+  
+  \begin{itemize}
+  \item \emph{Undo} - Undo the last change on the canvas reverting it to an
+older state.
+  \item \emph{Redo} - Reverse the undo command.
+  \item \emph{Cut}, \emph{Copy}, \emph{Paste} - Cut or copy elements from
+source and paste them to destination.
+  \item \emph{Select all} - Select a whole network topology.
+  \item \emph{Select adjacent} - Select nodes connected to the selected
+node(s). This feature is also available through the node menu.
+  \end{itemize}
+  \subsection{Canvas Menu}
+  The \emph{Canvas} menu contains options for canvas management.
+  
+  \begin{figure}[H]
+  \centering
+  \vspace{10pt}
+  \includegraphics[width=0.26\textwidth]{./images/canvas_menu.png}
+  \caption{\emph{Canvas menu}}
+  \label{fig:canvas_menu}
+  \end{figure}
+  
+  \begin{itemize}
+  \item \emph{New} - Create a new empty canvas.
+  \item \emph{Rename} - Rename the current canvas through the invoked dialog.
+  \item \emph{Delete} - Delete the current canvas.
+  \item \emph{Resize} - Resize the current canvas through the invoked dialog.
+  \item \emph{Background image} - Change background on the current canvas (see
+Section \ref{sec:CanvasBackgroundImage}).
+  \item \emph{Previous, Next, First, Last} - Switch between available canvases.
+  \end{itemize}
+  
+  \subsection{View Menu}
+  The \emph{View} menu contains options for showing / hiding links and nodes
+parameters on the canvas, options for changing icon size, zooming options, etc.
+  
+  \begin{figure}[H]
+  \centering
+  \vspace{10pt}
+  \includegraphics[width=0.29\textwidth]{./images/view_menu.png}
+  \caption{\emph{View menu}}
+  \label{fig:view_menu}
+  \end{figure}
+  
+  \begin{itemize}
+  \item \emph{Icon size} - Change the size (normal or small) of all network
+elements (see Section \ref{sec:Icons}).  
+  \item \emph{Show [network element parameter]} - Show or hide information such
+as interface names, IPv4/IPv6 addresses, etc. These options are usually saved
+in the .imn files, providing consistent look of scenarios running on different
+computers.
+%  \item \emph{Show IPsec Config} - Show or hide information about IPsec
+%configuration in the configuration window of network layer elements.
+%  \item \emph{Show ZFS snapshots} - Show or hide the configuration of different
+%  virtual images from network layer nodes.
+  \item \emph{Show Topology Tree} - Show or hide the tree with a list of all
+network topology elements.
+  \item \emph{Show Background Image} - Show or hide background image.
+  \item \emph{Show Annotations} - Show or hide annotations (text, oval,
+rectangle).
+  \item \emph{Show Grid} - Show or hide grid.
+  \item \emph{Zoom In, Zoom Out} - Magnify (\emph{Zoom In}) or reduce
+(\emph{Zoom Out}) the size of the display. 
+  \item \emph{Themes} - Choose one of the themes from the submenu. Each theme
+represents a collection of styles, where a style describes the appearance (or
+appearances) of a Ttk widget class.
+  \end{itemize}
+  
+  \subsection{Tools Menu}
+  The \emph{Tools} menu contains the network topology management tools.
+  
+  \begin{figure}[H]
+  \centering
+  \vspace{10pt}
+  \includegraphics[width=0.25\textwidth]{./images/tools_menu.png}
+  \caption{\emph{Tools menu}}
+  \label{fig:tools_menu}
+  \end{figure}
+  
+  \begin{itemize}
+  \item \emph{Auto rearrange all} - Automatically rearrange position of all
+network elements on canvas.
+  \item \emph{Auto rearrange selected} - Automatically rearrange position of
+the selected group of network elements.
+  \item \emph{Align to grid} - Arrange all network elements on canvas aligning
+them to grid.
+  \item \emph{IPv4 auto-assign addresses/routes} - Automatically assign IPv4
+addresses and routes upon creating a new node.
+  \item \emph{IPv6 auto-assign addresses/routes} - Automatically assign IPv6
+addresses and routes upon creating a new node.
+  \item \emph{Auto-generate /etc/hosts file} - Create a \emph{hosts} file on
+every node and map every other node hostname with its address.
+  \item \emph{Randomize MAC bytes} - Randomizes the 4th and 5th byte of the
+automatically generated MAC address.
+  \item \emph{IPv4 address pool} - Set variable-mask IPv4 address pool through
+the invoked dialog in order to replace default 10.0.0.0/24 address pool (see
+Section \ref{sec:IPv4AddressPool}). This will be applied to all the
+subsequentially created network layer elements. 
+  \item \emph{IPv6 address pool} - Set variable-mask IPv6 address pool through
+the invoked dialog in order to replace default fc00::/64 address pool (see
+Section \ref{sec:IPv6AddressPool}). This will be applied to all the
+subsequentially created network layer elements. 
+  \item \emph{Routing protocol defaults} - Set the routing protocol defaults
+(routing model and protocols) through the invoked dialog (see Section
+\ref{sec:RoutingProtocolDefaults}). This will be applied to all selected
+routers (if any) at the time of change, as well as to all the subsequentially
+created ones.
+  \end{itemize}
+  
+  \subsection{Topogen Menu}
+  The \emph{TopoGen} menu contains options for simple and fast specification of
+various network topologies (see Section \ref{sec:GeneratingNetworkTopology}).
+  
+  \begin{figure}[H]
+  \centering
+  \vspace{10pt}
+  \includegraphics[width=0.13\textwidth]{./images/topogen_menu.png}
+  \caption{\emph{Topogen menu}}
+  \label{fig:topogen_menu}
+  \end{figure}
+  
+ \subsection{Widgets Menu}
+  The \emph{Widgets} menu contains options for displaying information about the
+virtual network. To see these information, place the mouse pointer on the
+virtual node of interest after selecting a widget.
+
+ \begin{figure}[H]
+  \centering
+  \vspace{10pt}
+  \includegraphics[width=0.17\textwidth]{./images/widgets_menu.png}
+  \caption{\emph{Widgets menu}}
+  \label{fig:widgets_menu}
+  \end{figure}
+
+ \begin{itemize}
+ \item \emph{None} - Do not show any information about the virtual network.
+ \item \emph{ifconfig} - Show network interfaces parameters.
+ \item \emph{IPv4 Routing table} - Show the IPv4 routing table.
+ \item \emph{IPv6 Routing table} - Show the IPv6 routing table.
+ \item \emph{RIP routes info} - Show the RIP routing information.
+ \item \emph{RIPng routes info} - Show the RIPng routing information.
+ \item \emph{Process list} - Show the running processes.
+ \item \emph{IPv4 sockets} - Show the IPv4 sockets.
+ \item \emph{IPv6 sockets} - Show the IPv6 sockets.
+ \item \emph{View startup script} - Show the startup script /boot.conf
+ \item \emph{View startup log} - Show the startup log /out.log
+ \item \emph{Custom...} - Allows the specification of the command that will be
+executed inside a virtual node upon placing the mouse pointer on the virtual
+node. The result of the command will be displayed inside the widget. 
+ \end{itemize}
+
+ \subsection{Events Menu}
+ The \emph{Events} menu - This menu is used to configure event scheduling. The
+ event scheduling will be explained later in the Section
+ \ref{sec:using event scheduler}.
+
+ \begin{figure}[H]
+  \centering
+  \vspace{10pt}
+  \includegraphics[width=0.18\textwidth]{./images/events_menu.png}
+  \caption{\emph{Events menu}}
+  \label{fig:events_menu}
+  \end{figure}
+
+ \begin{itemize}
+ \item \emph{Start scheduling} - Start the scheduling of events.
+ \item \emph{Stop scheduling} - Stop the scheduling of events.
+ \item \emph{Event editor} - Schedule events on the links through the opened
+editor.
+ \end{itemize}
+
+  \subsection{Experiment Menu}
+  The \emph{Experiment} menu is used to start and terminate an experiment. It
+  also enables to attach to a running experiment.
+  
+  \begin{figure}[H]
+  \centering
+  \vspace{10pt}
+  \includegraphics[width=0.21\textwidth]{./images/experiment_menu.png}
+  \caption{\emph{Experiment menu}}
+  \label{fig:experiment_menu}
+  \end{figure}
+  
+  \begin{itemize}
+  \item \emph{Execute} - Start an experiment and switch to the execute mode. In
+the process of starting an experiment, IMUNES creates and configures the
+virtual network. All events during that process will be shown in the statusbar.
+  \item \emph{Terminate} - Terminate an experiment and switch to the edit mode.
+During the termination process, IMUNES will shut down all network elements and
+it will terminate active services on each node. The termination is finished
+when the message about the successful cleanup shows up in the statusbar.
+  \item \emph{Restart} - Terminate and restart the running experiment.
+  \item \emph{Attach to experiment} - This option opens opens a window with the
+list of running experiments on the current computer. It allows to resume
+running experiments that are shown in the \emph{Attach to experiment} window
+shown in Figure \ref{fig:attach_to_experiment}.
+  \end{itemize}
+  
+  \subsection{Help Menu}
+  The \emph{Help} menu contains the option \emph{About} that invokes the
+\emph{About} dialog box for viewing version information.
+  
+  \begin{figure}[H]
+  \centering
+  \vspace{10pt}
+  \includegraphics[width=0.09\textwidth]{./images/help_menu.png}
+  \caption{\emph{Help menu}}
+  \label{fig:help_menu} \end{figure}
+   

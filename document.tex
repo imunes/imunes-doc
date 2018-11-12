@@ -1,0 +1,68 @@
+\documentclass[a4paper, oneside]{imunes}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[pageanchor=false]{hyperref}
+\usepackage{alltt}
+\usepackage[it, small]{caption}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyheadoffset[L]{1.17in}
+\fancyfootoffset[L]{1.17in}
+
+\tolerance 1414
+\hbadness 1414
+\emergencystretch 1.5em
+\hfuzz 0.3pt
+\widowpenalty=10000
+\vfuzz \hfuzz
+\raggedbottom
+
+\fancyfoot{}
+\fancyfoot[R]{\thepage}
+
+\lhead{\nouppercase{\small{\emph{\rightmark}}}}
+\rhead{\nouppercase{\small{\emph{\leftmark}}}}
+
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\renewcommand*\familydefault{\sfdefault}
+
+% This setting works fine on FreeBSD, although on Linux and Windows
+% may look like there's no space between the picture and the caption.
+\setlength{\abovecaptionskip}{5pt}
+
+\setlength{\parskip}{1ex}
+\setlength{\parindent}{0cm}
+
+\newenvironment{mytitle}[0]%
+{\begin{list}{}%
+	{\setlength{\leftmargin}{-3cm}}%
+	\item[]%
+}
+{\end{list}}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\hypersetup{%
+	pdfborder = {0 0 0}
+}
+
+\hyphenation{configuration con-fi-gu-ra-ti-on simulation si-mu-la-ti-on
+simulating si-mu-la-ting propagation pro-pa-ga-ti-on ActiveState Act-ive-Sta-te}
+
+\begin{document}
+   \input{Titlepage}
+   \tableofcontents{}
+   \input{Changelog}
+   \input{Introduction}
+   \input{UserInterfaceLayout}
+   \input{QuickIntro}
+   \input{AdvancedUsage}
+   \appendix
+   \input{Installation}
+   \input{Troubleshooting}
+   \input{ConfigurationFile}
+\end{document}

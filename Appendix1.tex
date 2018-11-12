@@ -1,0 +1,433 @@
+\section{Examples}
+\subsection{Protocol ARP}
+
+The purpose of this example is to demonstrate Address Resolution Protocol (ARP)
+(Figure \ref{fig:ARP}).
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/ARP.png}
+% \caption{IMUNES canvas presenting the network used for the ARP example}
+% \label{fig:ARP}
+% \end{figure}
+
+\begin{enumerate}
+\item	Start the simulation.
+\item	Start Ethereal on eth0 of pc1. 
+\item	Open capture, and check ``Update list of packets in real time''.
+\item	Start capturing.
+\item	Open shell window on pc1.
+\item	Check the availability of the server1 (10.0.0.10). What is the response
+of the ping command? Stop the ping after several probes (Ctrl-C). 
+\item	Stop capturing.
+\item	Look into the Ethereal window. What are the first two packets? What are
+the source and destination addresses in those packets?
+\item	The first packet is ARP request, sent by pc1 to the broadcast address,
+requesting the MAC address of server1.
+\item	The second packet is ARP response, sent by server1 to the pc1.
+\item	Now, check the availability of server2 (10.0.8.10) while capturing the
+traffic on pc1. Stop pinging and capturing after several probes.
+\item	Look into the Ethereal window. What are the first two packets? What are
+the source and destination addresses in those packets?
+\item	The first packet is ARP request sent by pc1 to the broadcast address,
+requesting the MAC address of router.
+\item	The second packet is ARP reply sent by router to pc1. 
+\item	Further work: monitor the traffic on server2 in both cases. Does
+server2 see those ARP requests? Which ARP reqestst does it see? Why?
+\end{enumerate}
+
+\subsection{Ping example}
+
+The purpose of this example is to demonstrate how ping works (Figure
+\ref{fig:ping}).
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/Ping.png}
+% \caption{IMUNES canvas presenting the network used for the Ping example}
+% \label{fig:ping}
+% \end{figure}
+
+\begin{enumerate}
+\item	Start the simulation.
+\item	Start Ethereal on eth0 of pc1. 
+\item	Open capture, and check ``Update list of packets in real time''.
+\item	Start capturing.
+\item	Open shell window on pc1.
+\item	Check the availability of the server (10.0.8.10). What is the response
+of the ping command? Stop the ping after several probes (Ctrl-C). 
+\item	Stop capturing.
+\item	Analyse the traffic from the ping:
+\begin{itemize}
+\item	How many packets were recorded?
+\item	What are the first two packets?
+\item	What packets are involved with each probe?
+\item	What is Echo request?
+\item	 What is Echo reply?
+\end{itemize}
+\item	Open the content of the ICMP header. Analyse it.
+\item	Further work:
+\begin{itemize}
+\item	Repeat the same procedure with the increased packet size (1000 bytes,
+2000 bytes). 
+\item	Check 'man ping' for the info on how to use ping.  What happens? Does
+the fragmentation occur? Analyse it.
+\end{itemize}
+\end{enumerate}
+
+\subsection{Traceroute example}
+
+The purpose of this example is to demonstrate how traceroute works (Figure
+\ref{fig:traceroute}).
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/Traceroute.png}
+% \caption{IMUNES canvas presenting the network used for the Traceroute example}
+% \label{fig:traceroute}
+% \end{figure}
+
+\begin{enumerate}
+\item	Start Start the simulation.
+\item	Start Ethereal on eth0 of pc1. 
+\item	Open capture, and check ``Update list of packets in real time''.
+\item	Start capturing.
+\item	Open shell window on pc1.
+\item	Check the route to the server (10.0.8.10). Analyse the response from
+the traceroute and compare it with the network. Check the IP addresses of
+router interfaces involved in traffic routing.
+\item	Open shell window on the server.
+\item	Check the route back to the pc1 (10.0.0.21). Analyse the response from
+the traceroute and compare it with the network. Check the IP addresses of
+router interfaces involved in traffic routing. Compare it with the IP address
+in the last traceroute.
+\item	Stop capturing after approx. 10 seconds.
+\item	Analyse the traffic from both traceroutes.
+\item	The first trace should show all datagrams sent from pc1.
+\item	The second trace should show only the datagrams that actually reached
+pc1. Where are the others? Explain! 
+\item	Further work:
+\begin{itemize}
+\item	Start the capture on one of the router's interfaces along the path.
+\item	What traffic does that router "see" on the selected interface? Why?
+\end{itemize}
+\end{enumerate}
+
+\subsection{Protocol DHCP}
+
+The purpose of this example is to show how Dynamic Host Configuration Protocol
+(DHCP) server works. It requires the understanding of Linux and shell (Figure
+\ref{fig:DHCP}).
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/DHCP.png}
+% \caption{IMUNES canvas presenting the network used for the DHCP example}
+% \label{fig:DHCP}
+% \end{figure}
+
+\begin{enumerate}
+ \item	Start the simulation.
+ \item	Go to the console of the machine Imunes is run on and from the DHCP
+directory (where this file is) start the script ``start\_dhcp'': \#
+./start\_dhcp
+ \item	This script sets up the clients and the server.
+ \item	Go back to the Imunes GUI and start shell on the host pc3. Start the
+Ethereal on pc3 and start capturing, with the ``Update traffic in real time''
+option checked.
+ \item	In the pc3 shell check the pc3 IP address: pc3\# ifconfig -a
+ \item	Release the address: pc3\# dhclient -r
+ \item  After a few seconds, request a new address for the eth0 interface: pc\#
+dhclient eth0
+ \item	Now, check the address: pc\# ifconfig -a
+ \item	Stop capturing traffic. Check the packet trace.
+ \item	First, check the DHCP release trace. What messages are transmitted?
+ \item	Now, check how the client gets the IP address from the DHCP server.
+Identify those packets!
+  \begin{itemize}
+    \item	DHCP Discover
+      \begin{itemize}
+	\item	sent by pc3 with the source IP 0.0.0.0 (remember, pc3 want's
+new address, so uses 0.0.0.0 as the source, destination address is broadcast -
+pc3 has no idea who the DHCP server is
+      \end{itemize}
+    \item	DHCP Offer
+      \begin{itemize}
+	\item	DHCP server sends its offer, offering IP address, DNS servers,
+router, subnet mask
+      \end{itemize}    
+    \item	DHCP Request
+      \begin{itemize}
+	\item	pc3 sends broadcast requesting the offered address
+      \end{itemize}    
+    \item   DHCP ACK
+      \begin{itemize}
+	\item	DHCPserver approves the request for the address, defines the
+lease time (10 minutes in this example) and sends default router and DNS
+servers.
+      \end{itemize}  
+  \end{itemize}
+\end{enumerate}
+
+
+\subsection{Protocol RIP}
+
+The purpose of the first Routing Information Protocol (RIP) example is to show
+what happens in the "quiet" network - how routers exchange information about
+their neighbours (Figure \ref{fig:RIP1}).
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/RIP1.png}
+% \caption{IMUNES canvas presenting the network used for the first RIP example}
+% \label{fig:RIP1}
+% \end{figure}
+
+\begin{enumerate}
+ \item	Start the simulation.
+ \item	Open Ethereal on serial port ser0 on router 3.
+ \item	Open capture dialog. Check ``Update list of packets in real time''
+option.
+ \item	Start capturing.
+ \item	After 30 seconds, you should have at least 2 UDP datagrams.
+ \item	Stop capturing after approx. 1 min.
+ \item	In the Ethereal, open one package. 
+  \begin{itemize}
+   \item	What are the source and destination address?
+   \item	How often are the RIP packets transmitted?
+  \end{itemize}
+ \item	Show the contents of the first package and check the RIP data.
+ \item	Each datagram containes routes collected by the sending router, with
+the associate metric. Comment on the metric (number of hops).
+ \item	Further work:
+   \begin{itemize}
+    \item	during the simulation, open the router3 console and shut down
+the serial1 interface (ser1), simultaneously monitoring traffic on eg. serial
+port 2 of router2. Watch what happens with the routes. 
+    \item	what happens after 180 seconds?
+    \item	bring the route back to life, while still monitoring the
+traffic on router2. What happens?
+   \end{itemize}
+\end{enumerate}
+
+The purpose of the next example is to show what happens after the router goes
+down, and then goes back up (Figure \ref{fig:RIP2}).
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/RIP2.png}
+% \caption{IMUNES canvas presenting the network used for the second RIP example}
+% \label{fig:RIP2}
+% \end{figure}
+
+\begin{enumerate}
+ \item	Start the simulation.
+ \item	Open Ethereal on eth2 on router2 and start capturing the traffic with
+the ``Update list of packets in real time'' checked.
+ \item	Open router console on router2 (right-click, shell window, vtysh) and
+type "show ip rip". This shows the routes that router2 has. Analyse the routing
+table - available networks, next hops and metrics, as well as the time in the
+rightmost column.
+ \item	Now, stop router7 (right-click, stop). 
+ \item	In router2 console watch what is happening, using "show ip rip" and
+"show ip rip status". Look at the time of last updates. When Last Update
+reaches 3 minutes, the "show ip rip" should show metric 16 for the network
+10.0.4.10. Meanwhile, try to ping or traceroute the server (10.0.4.10).
+ \item	Watch what happens after 3 minutes. The network reconfigures and
+routing tables are refreshed when the new update packets arrive. Try traceroute
+from pc to the server. Which path do the packets take?
+ \item	Next, start the router7 again (right-click, start). Show what happens
+with the routes. Try traceroute from pc to the server and comment on the route.
+\end{enumerate}
+
+\subsection{Protocol OSPF}
+
+The purpose of the first Open Shortest Path First (OSPF) example is to show
+what happens in the "quiet" network - how routers exchange information about
+their neighbours (Figure \ref{fig:OSPF1}).
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/OSPF1.png}
+% \caption{IMUNES canvas presenting the network used for the first OSPF example}
+% \label{fig:OSPF1}
+% \end{figure}
+
+\begin{enumerate}
+ \item	Start the simulation.
+ \item	Open Ethereal on serial port ser0 on router 3.
+ \item	Open capture dialog. Check ``Update list of packets in real time''
+option.
+ \item	Start capturing.
+ \item	After 30 seconds, you should have at least 2 UDP datagrams.
+ \item	Stop capturing after approx. 1 min.
+ \item	In the Ethereal, open one package. 
+  \begin{itemize}
+   \item	What are the source and destination address?
+   \item	How often are the OSPF packets transmitted?
+  \end{itemize}
+ \item	Show the contents of the first package and check the OSPF data.
+ \item	Each datagram containes routes collected by the sending router, with
+the associate metric. Comment on the metric (number of hops).
+ \item	Further work:
+   \begin{itemize}
+    \item	during the simulation, open the router3 console and shut down
+the serial1 interface (ser1), simultaneously monitoring traffic on eg. serial
+port 2 of router2. Watch what happens with the routes. 
+    \item	what happens after 180 seconds?
+    \item	bring the route back to life, while still monitoring the
+traffic on router2. What happens?
+   \end{itemize}
+\end{enumerate}
+
+The purpose of the next example is to show what happens after the router goes
+down, and then goes back up (Figure \ref{fig:OSPF2}).
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/OSPF2.png}
+% \caption{IMUNES canvas presenting the network used for the second OSPF example}
+% \label{fig:OSPF2}
+% \end{figure}
+
+\begin{enumerate}
+ \item	Start the simulation.
+ \item	Open Ethereal on eth2 on router2 and start capturing the traffic with
+the ``Update list of packets in real time'' checked.
+ \item	Open router console on router2 (right-click, shell window, vtysh) and
+type "show ip ospf". This shows the routes that router2 has. Analyse the
+routing table - available networks, next hops and metrics, as well as the time
+in the rightmost column.
+ \item	Now, stop router7 (right-click, stop). 
+%  \item	In router2 console watch what is happening, using "show ip
+%  ospf" and "show ip ospf status". Look at the time of last updates. When Last
+%  Update reaches 3 minutes, the "show ip ospf" should show metric 16 for the
+%  network 10.0.4.10. Meanwhile, try to ping or traceroute the server
+%  (10.0.4.10).
+ \item	Watch what happens after 3 minutes. The network reconfigures and
+routing tables are refreshed when the new update packets arrive. Try traceroute
+from pc to the server. Which path do the packets take?
+ \item	Next, start the router7 again (right-click, start). Show what happens
+with the routes. Try traceroute from pc to the server and comment on the route.
+\end{enumerate}
+
+Use the following router commands:
+
+% \begin{itemize}
+%  \item	show ip route - shows all routes
+%  \item	show ip ospf route - shows ospf routes
+%  \item	show ip ospf interface - show info about router's interfaces
+%  \item	show ip ospf neighbor - show info about router's neighbours
+% \end{itemize}
+ 
+Notice the dead time in "show ip ospf neighbor" and check what happens after
+the router7 is shut down. Look at how the dead time changes.
+
+\subsection{Protocol DNS \& WWW example}
+
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/DNS-WWW.png}
+% \caption{Connections between multiple IMUNES canvases for DNS \& WWW examples}
+% \label{fig:DNS-WWW}
+% \end{figure}
+% 
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/DNS-Internet.png}
+% \caption{IMUNES canvas presenting the Internet network}
+% \label{fig:DNS-Internet}
+% \end{figure}
+% 
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/DNS-GEANT.png}
+% \caption{IMUNES canvas presenting the GEANT network}
+% \label{fig:DNS-GEANT}
+% \end{figure}
+% 
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/DNS-ARNES.png}
+% \caption{IMUNES canvas presenting the ARNES network}
+% \label{fig:DNS-ARNES}
+% \end{figure}
+% 
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/DNS-SRCE.png}
+% \caption{IMUNES canvas presenting the SRCE network}
+% \label{fig:DNS-SRCE}
+% \end{figure}
+% 
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/DNS-FER.png}
+% \caption{IMUNES canvas presenting the FER network}
+% \label{fig:DNS-FER}
+% \end{figure}
+% 
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/DNS-ZZT.png}
+% \caption{IMUNES canvas presenting the ZZT network}
+% \label{fig:DNS-ZZT}
+% \end{figure}
+% 
+% \begin{figure}[H]
+% \centering
+% \includegraphics[width=0.85\textwidth]{./images/DNS-LABS.png}
+% \caption{IMUNES canvas presenting the LABS network}
+% \label{fig:DNS-LABS}
+% \end{figure}
+
+\begin{enumerate}
+\item	Start imunes: \# imunes DNS.imn \&
+\item	In GUI select: Experiment $\to$ Execute
+\item	Cleanup the picture: select View $\to$ Show $\to$ 
+\begin{itemize}
+  \item  de-select "Interface Names"
+  \item  de-select "Link Lables" 
+\end{itemize}
+\item	Start DNS servers: \# ./start\_dns
+\item	Top level, root servers are:
+\begin{itemize}
+  \item   aRootServer: master (primary)
+  \item   bRootServer, cRootServer: slaves 
+\end{itemize}
+\item	Other DNS servers:
+\begin{itemize}
+  \item dnsCom: master for .com.
+\item	dnsOrg: master for .org.
+\item	dnsSrce:  master for .hr.
+\item	sunic.sunet.se:    slave for .hr.
+\item	diana: master for .fer.hr.
+\item	dnsTel: master for .tel.fer.hr.
+\end{itemize}
+\item	Right-click on PC named ``tito'' (in lower left corner of the ZZT
+canvas) and start xterm on that host and start Ethereal on dnsTel. Start
+capturing the traffic.
+\item	\# nslookup pc.arnes.si
+\item	Stop the capture after several seconds and analyse the traffic.
+Illustrate the example from the slide - who is sending requests and who is
+replying?
+\item	To show how the web works, start web servers (make sure DNS is
+working!).
+\end{enumerate}
+
+The purpose of this example is to demonstrate how WWW works.
+
+\begin{enumerate}
+\item	\# ./start\_www
+\item	Web servers:
+\begin{itemize}
+\item	www.tel.fer.hr
+\item	jagor.srce.hr
+\end{itemize}
+\item	Right-click on PC named ``tito'' (in lower left corner of the ZZT
+canvas) to start xterm on that host and start Ethereal on the same pc: \# links
+http://jagor.srce.hr.
+\item	Follow the link to www.tel.fer.hr and quit the program. Stop the capture.
+\item	Analyse the HTTP traffic. Use the "Follow HTTP stream" option to show
+what goes on on the connection.
+\end{enumerate}

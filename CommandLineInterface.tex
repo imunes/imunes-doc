@@ -1,0 +1,35 @@
+\section{Starting and terminating a simulation through CLI}
+In addition to the \emph{File$\to$Open} option to open an .imn file and the
+\emph{Experiment$\to$Execute} option used to initiate the virtual network
+topology in the GUI, the simulation can be initiated through the command-line
+interface (CLI) with the following command:
+
+\texttt{\# imunes -b simple-network.imn}
+ 
+Using IMUNES through GUI, the \emph{Experiment$\to$Terminate} option is used
+for shutting down the simulation and cleaning up the virtual network topology
+from the kernel. The CLI alternative for the latter is the following command:
+
+\texttt{\# imunes -b -e experimentId}
+
+The parameter \texttt{exeperimentId} represents the experiment identifier. In
+order to get the experiment identifier you can use the \texttt{himage} command.
+With \texttt{himage -l} you will get a list of identifiers of all started
+experiments. 
+
+% In Figure \ref{fig:***} you can see the output for the line:
+%  
+% \texttt{\# vimage -l}
+% 
+% As you can see, there are two experiment identifiers listed, one is *** and
+% the other is ***. In the next Figure \ref{fig:***} you can see the output for
+% the line:
+% 
+% \texttt{\# vimage -lr}
+% 
+% In this output, beside the experment identifiers, you also get the list of
+% network layer nodes with the information to which experiment they belong.
+% This can be useful if you have more than one experiment started on your PC
+% and can't resolve which identifier belongs to which experiment. With the
+% additional information, which nodes the experiment conatains, it can be
+% easier to distinguish the experiments.   

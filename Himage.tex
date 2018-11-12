@@ -1,0 +1,154 @@
+\section{Himage tool}
+The jls and jexec commands can be impractical for creating scripts for
+topologies since the output of the jls command is needed for starting the jexec
+command. The jexec command can't take the hostname of the jail as an argument,
+it can only take the jail name or jail id. The jail name is created from the
+IMUNES experiment ID and the node identifier (not hostname). Every experiment
+started in IMUNES has a different randomly generated experiment ID to enable
+execution of multiple experiments at once.
+
+IMUNES comes with the \texttt{himage} tool that enables the usage of hostnames
+when starting commands in virtual nodes. The \texttt{himage} tool starts the
+jexec command with the appropriate jail name so that the user doesn't have to
+search for it. 
+
+The \texttt{himage} command has the following options:
+\begin{itemize}
+\item \texttt{himage vi\_hostname command ...} - executes the command in the virtual
+node with the specified hostname. If no command is specified, it starts an
+interactive shell.
+\item \texttt{himage -m vi\_hostname} - executes the command in the experiment
+master jail. If no command is specified, it starts an interactive shell.
+\item \texttt{himage -v vi\_hostname} - gets the jail node name of the virtual
+node with the specified hostname
+\item \texttt{himage -n vi\_hostname} - gets the node identifier for the
+specified hostname.
+\item \texttt{himage -e vi\_hostname} - gets the experiment ID in which the virtual
+node with the specified hostname is running.
+\item \texttt{himage -j/-i vi\_hostname} - gets the jail ID in which the virtual
+node with the specified hostname is running.
+\item \texttt{himage -d} - gets the hostname jail filesystem path on the host
+machine.
+\item \texttt{himage -l} - gets the experiment list with the experiment data.
+\item \texttt{himage -ln} - gets the experiment list with node names.
+\end{itemize}
+
+\subsection{Examples}
+
+Example of usage of the command himage on a node with the hostname "pc" to get a
+list of running processes:
+
+\texttt{\# himage pc ps ax} \hfill
+
+If there are multiple experiments running and there are nodes with the same
+hostnames in these experiments the \texttt{himage} command accepts the following
+node specification where \texttt{vi\_hostname} is specified as
+\texttt{hostname@eid}, where eid is the experiments' ID.
+
+\texttt{\# himage hostname@eid command ...} \hfill
+
+i.e:
+
+\texttt{\# himage pc@i3d05a ps ax} \hfill
+
+where \texttt{i3d05a} is the experiment ID of the running experiments. To find
+out which experiments are running the \texttt{himage -l} command can be used as
+well as \texttt{jls -h jid name host.hostname}.
+
+Execute the \texttt{ifconfig} command the IMUNES node named \texttt{server}:
+
+\texttt{\# himage server ifconfig}
+
+\section{Hcp tool}
+
+While the \texttt{himage} command is used for running programs inside virtual
+nodes the \texttt{hcp} is used to copy files directly to the filesystem of
+running mobile nodes, thus simplifying deployment of configuration files for
+starting various services on virtual nodes.
+
+Usage of the command \texttt{hcp}:
+
+\texttt{hcp [cp\_command\_options] [vi\_hostname1:]filename
+[vi\_hostname2:]filename} \hfill
+
+The \texttt{hcp} command invokes the cp command with the specified options. If
+the \texttt{vi\_hostname1} is specified the script copies a file from the
+virtual node, otherwise it copies a file from the local folders. The second
+\texttt{vi\_hostname2} specifies on which node the first file will be copied, if
+not specified the file is copied to the local folders.
+
+\texttt{vi\_hostname} is specified in the same way as in the \texttt{himage}
+command, \texttt{hostname} or \texttt{hostname@eid}.
+
+\subsection{Examples}
+
+Copy file dhcpd.conf from a local folder to the virtual node DHCP:
+
+\texttt{\# hcp dhcpd.conf DHCP:/usr/local/etc/} \hfill
+
+Copy file message.txt from the virtual node PC to a local folder:
+
+\texttt{\# hcp PC:/root/message.txt .} \hfill
+
+Copy file index.html from the virtual node HOST to the virtual node HTTP:
+
+\texttt{\# hcp HOST:/usr/local/www/data/index.html HTTP:/usr/local/www/data/} \hfill
+
+\section{Example (himage and hcp)}
+
+This is an example of starting an DHCP server through a script with the
+provided configuration file dhcpd.conf.
+
+Kill the server if it's started:
+
+\texttt{\# himage DHCP killall -9 dhcpd} \hfill
+
+Copy the configuration file:
+
+\texttt{\# hcp dhcpd.conf DHCP:/usr/local/etc/} \hfill
+
+Create the \texttt{.leases} file defined in \texttt{dhcpd.conf}:
+
+\texttt{\# himage DHCP touch /var/db/dhcpd.leases} \hfill
+
+Start the sever with the copied configuration file:
+
+\texttt{\# himage DHCP dhcpd -cf /usr/local/etc/dhcpd.conf} \hfill
+
+\section{Vlink tool}
+
+The \texttt{vlink} tool is used to change link parameters. The following link parameters are available:
+\begin{itemize}
+	\item bandwidth (bps, bits-per-second)
+	\item bit-error rate, BER (number of bits in which one error will occur)
+	\item delay (microseconds)
+	\item packet duplication (\%, percentage of packets that will be duplicated)
+\end{itemize}
+
+A link is identified by the endpoint node names. The link between pc1 and pc2 is identified by \emph{pc1-pc2} or \emph{pc2-pc1}.
+
+Usage of the command \texttt{vlink}:
+
+\texttt{vlink [options] link\_name[@eid]} \hfill
+
+\subsection{Examples}
+
+Setting the bandwidth to 10 Mb/s with a delay of 30 ms to the link connecting \emph{router1} and \emph{pc1}:
+
+\texttt{\# vlink -bw 10000000 -dly 30000 router1-pc1}
+
+Generate an error on one bit in a million:
+
+\texttt{\# vlink -BER 1000000 router1-pc1}
+
+Set packet duplication to 20%:
+
+\texttt{\# vlink -dup 20 router1-pc1}
+
+Modifying a link in a specific experiment (i.e. Experiment ID = i56ad1):
+
+\texttt{\# vlink -dup 20 router1-pc1@i56ad1}
+
+To reset the link settings to the default values the -r flag is used:
+
+\texttt{\# vlink -r router1-pc1@i56ad1}
