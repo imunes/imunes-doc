@@ -125,7 +125,7 @@ The \texttt{vlink} tool is used to change link parameters. The following link pa
 	\item packet duplication (\%, percentage of packets that will be duplicated)
 \end{itemize}
 
-A link is identified by the endpoint node names. The link between pc1 and pc2 is identified by \emph{pc1-pc2} or \emph{pc2-pc1}.
+A link is identified by the endpoint node names. The link between pc1 and pc2 is identified by \emph{pc1:pc2} or \emph{pc2:pc1}.
 
 Usage of the command \texttt{vlink}:
 
@@ -135,20 +135,24 @@ Usage of the command \texttt{vlink}:
 
 Setting the bandwidth to 10 Mb/s with a delay of 30 ms to the link connecting \emph{router1} and \emph{pc1}:
 
-\texttt{\# vlink -bw 10000000 -dly 30000 router1-pc1}
+\texttt{\# vlink -bw 10000000 -dly 30000 router1:pc1}
 
 Generate an error on one bit in a million:
 
-\texttt{\# vlink -BER 1000000 router1-pc1}
+\texttt{\# vlink -BER 1000000 router1:pc1}
 
 Set packet duplication to 20%:
 
-\texttt{\# vlink -dup 20 router1-pc1}
+\texttt{\# vlink -dup 20 router1:pc1}
 
 Modifying a link in a specific experiment (i.e. Experiment ID = i56ad1):
 
-\texttt{\# vlink -dup 20 router1-pc1@i56ad1}
+\texttt{\# vlink -dup 20 router1:pc1@i56ad1}
 
 To reset the link settings to the default values the -r flag is used:
 
-\texttt{\# vlink -r router1-pc1@i56ad1}
+\texttt{\# vlink -r router1:pc1@i56ad1}
+
+Check all \texttt{vlink} arguments with:
+
+\texttt{\# vlink -h}
