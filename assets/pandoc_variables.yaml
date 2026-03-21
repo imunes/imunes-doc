@@ -1,0 +1,46 @@
+---
+geometry:
+  - margin=1in
+  - a4paper
+#mainfont: Aileron
+#monofont: Iosevka
+# monofontoptions: 'Scale=0.9'
+documentclass: article
+classoption:
+  - titlepage
+# fignos-cleveref: True
+# fignos-plus-name: figure
+# fignos-warning-level: 1
+header-includes:
+  - |
+    ```{=latex}
+    \usepackage{fancyhdr}
+    \usepackage{graphicx}
+    \usepackage{caption}
+    \usepackage{hyperref}
+    \usepackage{cleveref}
+    \usepackage{float}
+    \pagestyle{fancy}
+    \fancyhead[R]{\includegraphics[height=8mm]{assets/imunes_icon256.png}}
+    \fancyfoot[C]{\title}
+    \fancyfoot[LE,RO]{\thepage}
+    \usepackage{titling}
+    \pretitle{\begin{center}\includegraphics[width=3cm]{assets/imunes_logo128.png}\vspace*{\fill}\end{center}\begin{center}\Huge}
+    \posttitle{\end{center}\vspace*{\fill}}
+    \usepackage{fvextra}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+    \let\origfigure\figure
+    \let\endorigfigure\endfigure
+    \renewenvironment{figure}[1][2] {
+    \expandafter\origfigure\expandafter[H]
+    } {
+    \endorigfigure
+    }
+    \usepackage{etoolbox}
+    \apptocmd{\tableofcontents}{\cleardoublepage}{}{}
+    \usepackage{titlesec}
+    \titleformat{\paragraph}
+    {\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+    \titlespacing*{\paragraph}{0pt}{1ex plus .2ex}{1ex}
+    ```
+...

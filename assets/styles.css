@@ -1,0 +1,186 @@
+/* Layout */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.6;
+    max-width: 900px;
+    margin: auto;
+    padding: 2rem;
+    background: #ffffff;
+    color: #222;
+}
+
+/* Title block */
+#title-block-header {
+    margin-bottom: 2rem;
+}
+
+#title-block-header h1.title {
+    margin: 0;
+    font-size: 2rem;
+}
+
+#title-block-header .author {
+    margin: 0.2rem 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+/* Headings */
+h1 {
+    font-size: 1.8rem;
+    margin-top: 2rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.3rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin-top: 1.5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.2rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-top: 1.2rem;
+}
+
+h4 {
+    font-size: 1.05rem;
+    margin-top: 1rem;
+}
+
+/* Paragraphs */
+p {
+    margin: 1rem 0;
+}
+
+/* Links */
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+/* Links inside headers (h1, h2, h3, h4, etc.) */
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    color: inherit;          /* take header color */
+    text-decoration: none;   /* remove underline if any */
+}
+
+/* Hover only for links outside headers */
+a:hover:not(h1 a):not(h2 a):not(h3 a):not(h4 a):not(h5 a):not(h6 a) {
+    text-decoration: underline;
+}
+
+/* Left TOC sidebar */
+nav#TOC {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 1.5rem 1rem;
+    background: #fafafa;
+    border-right: 1px solid #eee;
+}
+
+/* TOC list */
+nav#TOC ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+nav#TOC li {
+    margin: 0.3rem 0;
+}
+
+nav#TOC ul ul {
+    padding-left: 1rem;
+}
+
+@media (max-width: 1216px) {
+    nav#TOC {
+        position: static;
+        width: 100%;
+        max-height: none;
+    }
+}
+
+/* Code */
+code {
+    background: #f6f8fa;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
+
+pre {
+    background: #f6f8fa;
+    padding: 1rem;
+    overflow-x: auto;
+    border-radius: 6px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+
+/* Lists */
+ul, ol {
+    padding-left: 1.5rem;
+}
+
+/* Images */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1rem auto;
+}
+
+/* Figures */
+figure {
+    text-align: center;
+    margin: 1.5rem auto;
+}
+
+figure img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+
+figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #555;
+    text-align: center;
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid #ddd;
+    padding-left: 1rem;
+    color: #555;
+    margin: 1rem 0;
+}
+
+/* Tables */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 0.5rem;
+}
+
+th {
+    background: #f0f0f0;
+}

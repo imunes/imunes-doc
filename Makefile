@@ -1,28 +1,53 @@
+# variables
+SRC != find docs -name '*.md' ! -name 'index.md' ! -name 'A*.md' | sort
+APP != find docs -name 'A*.md' | sort
+SRC := docs/index.md $(SRC) $(APP)
+OUT := build/IMUNES_manual
+PANDOC := pandoc
+METAFILE := ./assets/pandoc_variables.yaml
 
-TARGET = document
-HTML_TARGET = html_document
-VISAK = *.aux *.idx *.log *.toc *.out *.dvi
-HTML_VISAK = ${HTML_TARGET}.pdf ${HTML_TARGET}.idx \
-	     ${HTML_TARGET}.log ${HTML_TARGET}.toc \
-	     ${HTML_TARGET}.out ${HTML_TARGET}.dvi
+ASSETS_SRC := ./assets
+ASSETS_DST := build/assets
+CSS := ./assets/styles.css
 
-all: ${TARGET}.tex
-	pdflatex ${TARGET}.tex
-	pdflatex ${TARGET}.tex
-	pdflatex ${TARGET}.tex
-	cp ${TARGET}.pdf IMUNES_manual.pdf
+# default target
+all: pdf html
 
-cleanAll:
-	-rm -rf ${VISAK} ${HTML_VISAK} ${TARGET}.pdf ${HTML_TARGET}
+# ensure build directory exists
+build:
+	mkdir -p build
 
+assets: build
+	rsync -a $(ASSETS_SRC)/ $(ASSETS_DST)/
+
+# PDF (with TOC + xelatex)
+pdf: build
+	$(PANDOC) $(SRC) \
+		--filter pandoc-crossref \
+		-s \
+		--wrap auto \
+		--metadata-file=$(METAFILE) \
+		-f markdown \
+		--toc \
+		--toc-depth=4 \
+		--pdf-engine=xelatex \
+		--number-sections \
+		-o $(OUT).pdf
+
+# HTML (with TOC + CSS)
+html: assets
+	$(PANDOC) $(SRC) \
+		--filter pandoc-crossref \
+		-s \
+		--wrap auto \
+		--metadata-file=$(METAFILE) \
+		-f markdown \
+		--toc \
+		--toc-depth=4 \
+		--number-sections \
+		-c $(CSS) \
+		-o $(OUT).html
+
+# clean
 clean:
-	-rm -rf ${VISAK} ${HTML_VISAK}
-
-html: ${HTML_TARGET}.tex
-	pdflatex ${HTML_TARGET}.tex
-	-rm -f ${HTML_VISAK}
-	latex2html -t "IMUNES manual" -show_section_numbers -split 3 ${HTML_TARGET}.tex
-	cp ${HTML_TARGET}.css ${HTML_TARGET}
-	cd ${HTML_TARGET} && sed -i"" -e 's#file:/usr/local/share/latex2html/icons/##' *.html
-	cp html_images/* ${HTML_TARGET}
-
+	rm -rf build/*
