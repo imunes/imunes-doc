@@ -36,58 +36,15 @@ tools (except for the *Select tool*) are shaded and cannot be used.
 
 Each toolbox item shown in [@fig:toolbox_tools], is described below.
 
-**Selecting elements:**
+{{include:generated-docs/selecttool.md}}
 
- * *Select tool* - The default tool for selecting and moving elements.
+{{include:generated-docs/linktool.md}}
 
-**Building the network topology:**
+{{include:generated-docs/linklayertools.md}}
 
- * *Link* - A tool that is used to create network links between nodes.
+{{include:generated-docs/netlayertools.md}}
 
- * *L2* - **Link layer nodes:**
-
-   - *Hub* - A link layer element that forwards every incoming packet to all of
-     its ports and, thus, to every connected node.
-   - *LAN switch* - A link layer element that forwards incoming packets to
-     connected nodes using the table of destination addresses and its ports.
-   - *Click switch* - A link layer element that forwards incoming packets to
-     connected nodes using the table of destination addresses and its ports
-     (using Click modular switch).
-   - *External interface* - A tool that provides the possibility to connect a
-     virtual node with the physical interface (e.g. to give the node the access
-     to the Internet).
-   - *RSTP switch* - A Rapid Spanning Tree Protocol switch that can prevent
-     bridge loops and allow providing backup links if an active link fails.
-   - *Filter node* - A link layer element that can filter/divert/forward
-     packets depending on their content.
-   - *Packet generator* - A link layer element to craft custom packets and send
-     them with given packet rate.
-
- * *L3* - **Network layer nodes:**
-
-   - *External connection* - A tool that provides the possibility to connect
-     your host PC with a virtual node by creating an interface on your
-     computer.
-   - *Router* - A network layer element that is capable of packet forwarding
-     using the routes obtained by dynamic routing protocols (available through
-     quagga or xorp by default installation or any other standard FreeBSD
-     routing daemon).
-   - *Click Router* - A network layer element that is capable of packet
-     forwarding using the routes obtained by dynamic routing protocols (using
-     Click modular router).
-   - *Host* - A network layer element that does not forward packets and has
-     static routes. It starts standard network services, via portmap and inetd.
-   - *PC* - A network layer element that also does not forward packets and has
-     static routes. Unlike host, it does not start any network services.
-   - *NAT64* - A router node which is capable to enable translation between
-     IPv4 and IPv6 protocols using a form of network address translation (NAT).
-
-**Adding annotations:**
-
- * *Text* - A tool for adding new text on the canvas.
- * *Oval* - A tool for adding a new oval shape on the canvas.
- * *Rectangle* - A tool for adding a new rectangle shape on the canvas.
- * *Freeform* - A tool for adding a new freeform shape on the canvas.
+{{include:generated-docs/annotationtools.md}}
 
 ## [Menubar](#menubar)
 
