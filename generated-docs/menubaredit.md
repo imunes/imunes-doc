@@ -1,32 +1,8 @@
-Undo last change
-
-Revert the most recent topology modification.
-
-Redo last change
-
-Reapply the last reverted topology modification.
-
-Cut nodes + links
-
-Remove selected nodes and links from the canvas and place them into the clipboard.
-
-Copy nodes + links
-
-Copy selected nodes and links into the clipboard.
-
-Paste nodes + links
-
-Insert nodes and links from the clipboard to the topology.
-
-Select all objects
-
-Select all nodes and annotations on the current canvas.
-
-Select adjacent nodes
-
-Select all nodes directly connected to the currently selected nodes.
-
-Editor preferences
-
-Configure IMUNES default/current global options.
-
+Undo last changeRevert the most recent topology modification.
+Redo last changeReapply the last reverted topology modification.
+Cut nodes + linksRemove selected nodes and links from the canvas and place them into the clipboard.
+Copy nodes + linksCopy selected nodes and links into the clipboard.
+Paste nodes + linksInsert nodes and links from the clipboard to the topology.
+Select all objectsSelect all nodes and annotations on the current canvas.
+Select adjacent nodesSelect all nodes directly connected to the currently selected nodes.
+Editor preferencesConfigure IMUNES default/current global options.

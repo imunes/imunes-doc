@@ -1,33 +1,5 @@
 # [Features](#features)
 
-## [Live Mode](#live-mode)
-
-Previous versions of IMUNES had a limitation: changing the topology required
-the experiment to be stopped. Starting with v3, the experiment no longer needs
-to be stopped to modify the topology, so adding, removing or modifying nodes or
-links is immediately reflected in the system experiment snapshot.
-
-There is also an option to *Pause execution*. Any changes made while the
-experiment is running will not affect the live snapshot until you *Resume
-execution*. At that point, all changes are applied simultaneously. For example:
-deleting multiple nodes while **not** in paused mode will stop and destroy the
-nodes one by one, whereas performing the same action in paused mode will
-terminate them in parallel.
-
-## [New .imn Format](#new-.imn-format)
-
-Starting with v3, topologies are no longer stored in a custom format and have
-been replaced with JSON. Opening topologies in a legacy format is still
-supported, but they will be saved in the new format, as the legacy format is no
-longer maintained.
-
-## [Help Labels](#help-labels)
-
-When hovering over certain label GUI elements, the cursor changes to a question
-mark (?). Holding the right mouse button on such a label creates a button, and
-releasing it over the created button opens the help section for the option
-associated with that label.
-
 ## [Direct Links](#direct-links)
 
 Right-clicking on a link provides the option to change its type to *Direct

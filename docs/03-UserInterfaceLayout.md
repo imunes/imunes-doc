@@ -228,31 +228,28 @@ Event Scheduling](#user-configurable-event-scheduling).
 
 ### [Experiment Menu](#experiment-menu)
 
-The *Experiment* menu ([@fig:experiment_menu]) is used to start and terminate
-an experiment. It also enables to attach to a running experiment.
-
 ![Experiment menu\
 ](./assets/experiment_menu.png
-){#fig:experiment_menu width=20%}
+){#fig:experiment_menu width=25%}
 
- * *Execute* - Start an experiment and switch to the execute mode. In the
-   process of starting an experiment, IMUNES creates and configures the virtual
-   network. All events during that process will be shown in the statusbar.
- * *Terminate* - Terminate an experiment and switch to the edit mode.  During
-   the termination process, IMUNES will shut down all network elements and it
-   will terminate active services on each node. The termination is finished
-   when the message about the successful cleanup shows up in the statusbar.
- * *Restart* - Terminate and restart the running experiment.
- * *Attach to experiment* - This option opens opens a window with the list of
-   running experiments on the current computer. It allows to resume running
-   experiments that are shown in the *Attach to experiment* window shown in
-   [@fig:attach_to_experiment].
+{{include:generated-docs/menubarexperiment.md}}
+
+See more details in the [IMUNES Architecture](#imunes-architecture) chapter.
 
 ### [Help Menu](#help-menu)
-
-The *Help* menu ([@fig:help_menu]) contains the option *About* that invokes the
-*About* dialog box for viewing version information.
 
 ![Help menu\
 ](./assets/help_menu.png
 ){#fig:help_menu width=8%}
+
+{{include:generated-docs/menubarhelp.md}}
+
+### [Other menus](#other-menus)
+
+![Bottom menu (TODO)\
+](./assets/bottom_menu.png
+){#fig:bottom_menu width=100%}
+
+Bottom menu ([@fig:bottom_menu]) gives information about current experiment:
+
+{{include:generated-docs/bottombar.md}}

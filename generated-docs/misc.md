@@ -1,6 +1,4 @@
-Editor Preferences
-
-`Active options`
+Editor Preferences`Active options`
 
 Preview of currently active options combining Custom, Topology and Default options. The Default options are loaded first, overwritten by the Topology options and Custom options. If `custom_override` is enabled for the option, the Custom option will always overwrite the topology option.
 
@@ -11,4 +9,3 @@ Options loaded from .rc files (`/etc/imunes/config`, `$HOME/.imunes.rc` if it ex
 `Topology options`
 
 Options loaded from, and saved to the .imn file - some options cannot be saved.
-

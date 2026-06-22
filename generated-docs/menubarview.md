@@ -1,76 +1,19 @@
-Node icon size
-
-Change the size of node icons displayed on the canvas (`Normal` or `Small`).
-
-Show Interface Names
-
-Display interface names on links next to node interfaces.
-
-Show IPv4 Addresses
-
-Display configured IPv4 addresses on links next to interfaces.
-
-Show IPv6 Addresses
-
-Display configured IPv6 addresses on links next to interfaces.
-
-Show VLAN Interfaces
-
-Display VLAN interfaces, their identifiers, and their IPv4/IPv6 addresses.
-
-Show Node Labels
-
-Display node names/labels on the canvas.
-
-Show Link Labels
-
-Display link options configured on each link.
-
-Show All
-
-Enable all topology information overlays.
-
-Show None
-
-Hide all topology information overlays.
-
-Show Topology Tree
-
-Display the topology tree panel for easier navigation.
-
-Customize Node Types
-
-Select which node types are visible in the node toolbar.
-
-Show Unsupported Nodes
-
-Display node types not supported on the current platform.
-
-Show Custom Nodes
-
-Display user-defined custom node types.
-
-Show Background Image
-
-Display the configured canvas background image.
-
-Show Annotations
-
-Display text and graphical annotations.
-
-Show Grid
-
-Display the canvas alignment grid.
-
-Zoom In
-
-Increase canvas zoom level.
-
-Zoom Out
-
-Decrease canvas zoom level.
-
-Themes
-
-Select the visual theme used by the IMUNES interface.
-
+Node icon sizeChange the size of node icons displayed on the canvas (`Normal` or `Small`).
+Show Interface NamesDisplay interface names on links next to node interfaces.
+Show IPv4 AddressesDisplay configured IPv4 addresses on links next to interfaces.
+Show IPv6 AddressesDisplay configured IPv6 addresses on links next to interfaces.
+Show VLAN InterfacesDisplay VLAN interfaces, their identifiers, and their IPv4/IPv6 addresses.
+Show Node LabelsDisplay node names/labels on the canvas.
+Show Link LabelsDisplay link options configured on each link.
+Show AllEnable all topology information overlays.
+Show NoneHide all topology information overlays.
+Show Topology TreeDisplay the topology tree panel for easier navigation.
+Customize Node TypesSelect which node types are visible in the node toolbar.
+Show Unsupported NodesDisplay node types not supported on the current platform.
+Show Custom NodesDisplay user-defined custom node types.
+Show Background ImageDisplay the configured canvas background image.
+Show AnnotationsDisplay text and graphical annotations.
+Show GridDisplay the canvas alignment grid.
+Zoom InIncrease canvas zoom level.
+Zoom OutDecrease canvas zoom level.
+ThemesSelect the visual theme used by the IMUNES interface.

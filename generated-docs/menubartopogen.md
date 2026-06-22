@@ -1,4 +1,1 @@
-Topology generator
-
-Generate predefined or parameterized network topologies automatically.
-
+Topology generatorGenerate predefined or parameterized network topologies automatically.

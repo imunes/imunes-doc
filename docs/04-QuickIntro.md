@@ -1,5 +1,17 @@
 # [Quick Intro](#quick-intro)
 
+## [IMUNES Topology Basics](#imunes-topology-basics)
+
+This section covers functional IMUNES elements. Check [Annotations
+](#annotations) section for details on how to draw and configure graphical
+annotations.
+
+{{include:generated-docs/node.md}}
+
+{{include:generated-docs/ifaces.md}}
+
+{{include:generated-docs/link.md}}
+
 ## [Simple Network Scenario](#simple-network-scenario)
 
 In this section we will show how to build, configure and simulate the following
