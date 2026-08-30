@@ -1,16 +1,15 @@
 # [Quick Intro](#quick-intro)
 
+## [Installation](#installation)
+
+Check [IMUNES Github](https://github.com/imunes/imunes) for step-by-step
+installation.
+
 ## [IMUNES Topology Basics](#imunes-topology-basics)
 
 This section covers functional IMUNES elements. Check [Annotations
 ](#annotations) section for details on how to draw and configure graphical
 annotations.
-
-{{include:generated-docs/node.md}}
-
-{{include:generated-docs/ifaces.md}}
-
-{{include:generated-docs/link.md}}
 
 ## [Simple Network Scenario](#simple-network-scenario)
 

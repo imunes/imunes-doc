@@ -8,28 +8,23 @@ physical network interface through simulated links. All virtual nodes share a
 single place for their application binaries and libraries. The main strengths
 of this tool are high scalability, performance and fidelity.
 
-## [Installation](#installation)
-
-Check [IMUNES Github](https://github.com/imunes/imunes) for step-by-step
-installation.
-
 ## [Document Overview](#document-overview)
 
 This document is intended to be a manual for users that are getting started
 with IMUNES, likewise for the ones that want to know more about its advanced
 features.
 
-The first part, [IMUNES Architecture](#imunes-architecture), defines the core
-concepts of IMUNES and describes how IMUNES works internally on supported
-platforms (FreeBSD and Linux).
-
-The second part, [User Interface Layout](#user-interface-layout), gives detailed
-description of IMUNES graphical user interface. 
-
-The third part, [Quick Intro](#quick-intro), is intended to prepare beginners
+The first part, [Quick Intro](#quick-intro), is intended to prepare beginners
 to get a working network simulation in a short time. It gives detailed
 explanations for building, configuring and simulating a simple network. At the
 end it gives instructions related to IMUNES configuration files.
+
+The second part, [IMUNES Architecture](#imunes-architecture), defines the core
+concepts of IMUNES and describes how IMUNES works internally on supported
+platforms (FreeBSD and Linux).
+
+The third part, [User Interface Layout](#user-interface-layout), gives detailed
+description of IMUNES graphical user interface. 
 
 The forth part, [Advanced Usage](#advanced-usage), gives instructions for
 extending the network topology built in the first section. It also explains the

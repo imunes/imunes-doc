@@ -46,3 +46,9 @@ topology while retaining the same experiment ID (*eid*).
 ## [Running On FreeBSD](#running-on-freebsd)
 
 ## [Running On Linux](#running-on-linux)
+
+## [Node types](#node-types)
+
+This is an architectural and detailed view of the IMUNES nodes. For a high
+level explanation, check the [Toolbox](#toolbox) section in the [User Interface
+Layout](#user-interface-layout) chapter.

@@ -132,12 +132,21 @@ topology shown in [@fig:network_topology]
         "192.168.2.0/24 192.168.1.1"
       ],
       "custom_configs": {
-        "NODE_CONFIG": {
-          "newconf": {
+        "NODE_CONFIG": [
+          {
+            "custom_name": "newconf",
             "custom_command": "/bin/sh",
-            "custom_config": "ifconfig lo0 inet 127.0.0.1/8\nifconfig eth0 inet 192.168.1.5/24\n\nroute -q add -inet 192.168.2.0/24 192.168.1.1\n\necho \"Success!\" > /tmp/log\nifconfig vlan0"
+            "custom_config": [
+              "ifconfig lo0 inet 127.0.0.1/8",
+              "ifconfig eth0 inet 192.168.1.5/24",
+              "",
+              "route -q add -inet 192.168.2.0/24 192.168.1.1",
+              "",
+              "echo \"Success!\" > /tmp/log",
+              "ifconfig vlan0"
+            ]
           }
-        }
+        ]
       },
       "custom_enabled": "true",
       "custom_selected": "NODE_CONFIG newconf",
@@ -305,7 +314,7 @@ topology shown in [@fig:network_topology]
   },
   "options": {
     "auto_etc_hosts": "0",
-    "version": "3"
+    "version": "4"
   }
 }
 ```
