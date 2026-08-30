@@ -1,4 +1,10 @@
-IMUNES EventsTools for scheduling topology changes and actions during experiment execution.
-Events - start schedulingStart processing scheduled events.
-Events - stop schedulingStop processing scheduled events.
-Event editorCreate, modify and delete scheduled events.
+
+### [Events Menu](#events-menu)
+
+The *Events* menu ([@fig:events_menu]) is used to configure event scheduling. The event scheduling is explained in detail in the documentation section [User-configurable Event Scheduling](#user-configurable-event-scheduling).
+
+![Events menu](./assets/events_menu.png){#fig:events_menu width=15%}
+
+  * *Start scheduling* - Start processing scheduled events.
+  * *Stop scheduling* - Stop processing scheduled events.
+  * *Event editor* - Create, modify and delete scheduled events.

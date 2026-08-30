@@ -246,6 +246,10 @@ logical interface `vlan0` on a physical interface `eth0` with an arbitrary tag
 ](./assets/vlan_logical_interfaces.png
 ){#fig:vlan_logical_ifcs}
 
+## [Advanced Node Options](#advanced-node-options)
+
+{{include:generated-docs/advancedopts.md}}
+
 ## [Additional Tools](#additional-tools)
 
 ### [Splitting a Link](#splitting-a-link)
