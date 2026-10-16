@@ -9,7 +9,7 @@ FreeBSD:
 
   * *normal* link: the interface is moved to the experiment jail and bridged with the nodes interface
   * *direct* link: the interface is moved to the experiment jail and connected directly with the nodes interface
- 
+
 Linux:
 
   * *normal* link: the interface is moved into the experiment netns and bridged with the nodes interface

@@ -18,8 +18,8 @@ The *View* menu ([@fig:view_menu]) contains options for showing / hiding links a
   * *Customize Node Types* - Select which node types are visible in the node toolbar.
   * *Show Unsupported Nodes* - Display node types not supported on the current platform.
   * *Show Custom Nodes* - Display user-defined custom node types.
-  * *Show Background Image* - Display the configured canvas background image.
   * *Show Annotations* - Display text and graphical annotations.
+  * *Show Hidden Annotations* - Display annotations marked as hidden.
   * *Show Grid* - Display the canvas alignment grid.
   * *Zoom In* - Increase canvas zoom level.
   * *Zoom Out* - Decrease canvas zoom level.

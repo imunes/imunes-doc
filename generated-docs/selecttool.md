@@ -1,5 +1,5 @@
 
-### [Select tool](#select-tool)
+### [Select Tool](#select-tool)
 
 The default tool for selecting and moving elements. Click an element to select it, or click and drag on an empty area of the canvas to draw a rectangle around one or more elements.
 
