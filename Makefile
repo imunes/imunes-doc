@@ -17,14 +17,9 @@ CSS := ./assets/styles.css
 # default target
 all: html pdf
 
-$(TMP_SRC): $(SRC) $(APP) $(GEN)
+$(TMP_SRC): $(SRC) $(APP) $(GEN) scripts/expand-includes.pl
 	mkdir -p build
-	: > $(TMP_SRC)
-
-	for f in $(SRC); do \
-		perl -pe 's!\{\{include:([^}]+)\}\}!do { local $$/; open my $$fh, "<", $$1 or die "Cannot open $$1"; <$$fh> }!ge' $$f >> $(TMP_SRC); \
-		echo "" >> $(TMP_SRC); \
-	done
+	perl scripts/expand-includes.pl $(SRC) > $(TMP_SRC)
 
 # ensure build directory exists
 build:
