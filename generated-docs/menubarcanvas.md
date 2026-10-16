@@ -1,4 +1,8 @@
 
+#### [Canvas Grid](#canvas-grid)
+
+Alignment guide used for placing nodes more precisely.
+
 ### [Canvas Menu](#canvas-menu)
 
 The *Canvas* menu contains options for canvas management [@fig:canvas_menu].
